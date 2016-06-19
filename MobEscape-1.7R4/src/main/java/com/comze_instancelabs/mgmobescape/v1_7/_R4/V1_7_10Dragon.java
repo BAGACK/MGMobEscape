@@ -110,7 +110,7 @@ public class V1_7_10Dragon implements AbstractDragon {
 		 */
 		/*
 		 * m.getLogger().info("DRAGON SPAWNED " + arena + " " + t.toString()); Object w = ((CraftWorld) t.getWorld()).getHandle(); ArrayList<Vector>
-		 * temp = ((IArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena)).getDragonWayPoints(arena); if (temp == null) {
+		 * temp = ((IArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena)).getDragonWayPoints(arena); if (temp == null  || temp.isEmpty()) {
 		 * m.getLogger().severe("You forgot to set any FlyPoints! You need to have min. 2 and one of them has to be at finish."); return null; } final
 		 * MEDragon t_ = new MEDragon(m, arena, t, (net.minecraft.server.v1_7_R4.World) w, temp); ((net.minecraft.server.v1_7_R4.World)
 		 * w).addEntity(t_, CreatureSpawnEvent.SpawnReason.CUSTOM); final IArena a = (IArena) m.pli.getArenaByName(arena);
@@ -119,7 +119,7 @@ public class V1_7_10Dragon implements AbstractDragon {
 		m.getLogger().info("DRAGON SPAWNED " + arena + " " + t.toString());
 		Object w = ((CraftWorld) t.getWorld()).getHandle();
 		ArrayList<Vector> temp = ((MEArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena)).getDragonWayPoints(arena);
-		if (temp == null) {
+		if (temp == null  || temp.isEmpty()) {
 			m.getLogger().severe("You forgot to set any FlyPoints! You need to have min. 2 and one of them has to be at finish.");
 			return null;
 		}
