@@ -74,62 +74,98 @@ public class IArena extends Arena implements MEArena {
 			Util.saveComponentForArena(m, arena, "mobspawn", a.getSpawns().get(0).clone().add(0D, 3D, 0D));
 		}
 		if (mobtype.equalsIgnoreCase("dragon")) {
-			if (m.mode1_7_5) {
-				ad = new V1_7_5Dragon();
-				setDragon(V1_7_5Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_7_8) {
-				ad = new V1_7_8Dragon();
-				setDragon(V1_7_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_7_10) {
-				ad = new V1_7_10Dragon();
-				setDragon(V1_7_10Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_8) {
-				ad = new V1_8Dragon();
-				setDragon(V1_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_8_3) {
-				ad = new V1_8_3Dragon();
-				setDragon(V1_8_3Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_9) {
-				ad = new V1_9Dragon();
-				setDragon(V1_9Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_9_4) {
-				ad = new V1_9_4Dragon();
-				setDragon(V1_9_4Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_10) {
+			switch (MinigamesAPI.SERVER_VERSION)
+			{
+			default:
+			case Unknown:
+				break;
+			case V1_10:
+			case V1_10_R1:
 				ad = new V1_10Dragon();
 				setDragon(V1_10Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
-			} else {
+				break;
+			case V1_7:
+			case V1_7_R1:
 				ad = new V1_7Dragon();
 				setDragon(V1_7Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_7_R2:
+				ad = new V1_7_5Dragon();
+				setDragon(V1_7_5Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_7_R3:
+				ad = new V1_7_8Dragon();
+				setDragon(V1_7_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_7_R4:
+				ad = new V1_7_10Dragon();
+				setDragon(V1_7_10Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_8:
+			case V1_8_R1:
+				ad = new V1_8Dragon();
+				setDragon(V1_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_8_R2:
+				ad = new V1_8_3Dragon();
+				setDragon(V1_8_3Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_9:
+			case V1_9_R1:
+				ad = new V1_9Dragon();
+				setDragon(V1_9Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_9_R2:
+				ad = new V1_9_4Dragon();
+				setDragon(V1_9_4Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
 			}
 		} else {
-			if (m.mode1_7_5) {
-				aw = new V1_7_5Wither();
-				setWither(V1_7_5Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_7_8) {
-				aw = new V1_7_8Wither();
-				setWither(V1_7_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_7_10) {
-				aw = new V1_7_10Wither();
-				setWither(V1_7_10Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_8) {
-				aw = new V1_8Wither();
-				setWither(V1_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_8_3) {
-				aw = new V1_8_3Wither();
-				setWither(V1_8_3Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_9) {
-				aw = new V1_9Wither();
-				setWither(V1_9Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_9_4) {
-				aw = new V1_9_4Wither();
-				setWither(V1_9_4Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else if (m.mode1_10) {
+			switch (MinigamesAPI.SERVER_VERSION)
+			{
+			default:
+			case Unknown:
+				break;
+			case V1_10:
+			case V1_10_R1:
 				aw = new V1_10Wither();
 				setWither(V1_10Wither.spawnWither(m, arena, a.getDragonSpawn()));
-			} else {
+				break;
+			case V1_7:
+			case V1_7_R1:
 				aw = new V1_7Wither();
 				setWither(V1_7Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_7_R2:
+				aw = new V1_7_5Wither();
+				setWither(V1_7_5Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_7_R3:
+				aw = new V1_7_8Wither();
+				setWither(V1_7_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_7_R4:
+				aw = new V1_7_10Wither();
+				setWither(V1_7_10Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_8:
+			case V1_8_R1:
+				aw = new V1_8Wither();
+				setWither(V1_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_8_R2:
+				aw = new V1_8_3Wither();
+				setWither(V1_8_3Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_9:
+			case V1_9_R1:
+				aw = new V1_9Wither();
+				setWither(V1_9Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_9_R2:
+				aw = new V1_9_4Wither();
+				setWither(V1_9_4Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
 			}
 		}
 

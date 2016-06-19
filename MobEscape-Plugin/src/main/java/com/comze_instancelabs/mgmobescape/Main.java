@@ -33,14 +33,23 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import com.comze.instancelabs.mgmobescape.v1_10.V1_10Dragon;
+import com.comze.instancelabs.mgmobescape.v1_10.V1_10Wither;
 import com.comze.instancelabs.mgmobescape.v1_9.V1_9Dragon;
+import com.comze.instancelabs.mgmobescape.v1_9.V1_9Wither;
 import com.comze.instancelabs.mgmobescape.v1_9_R2.V1_9_4Dragon;
+import com.comze.instancelabs.mgmobescape.v1_9_R2.V1_9_4Wither;
 import com.comze_instancelabs.mgmobescape.v1_7.V1_7Dragon;
+import com.comze_instancelabs.mgmobescape.v1_7.V1_7Wither;
 import com.comze_instancelabs.mgmobescape.v1_7._R2.V1_7_5Dragon;
+import com.comze_instancelabs.mgmobescape.v1_7._R2.V1_7_5Wither;
 import com.comze_instancelabs.mgmobescape.v1_7._R3.V1_7_8Dragon;
+import com.comze_instancelabs.mgmobescape.v1_7._R3.V1_7_8Wither;
 import com.comze_instancelabs.mgmobescape.v1_7._R4.V1_7_10Dragon;
+import com.comze_instancelabs.mgmobescape.v1_7._R4.V1_7_10Wither;
 import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Dragon;
+import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Wither;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Dragon;
+import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Wither;
 import com.comze_instancelabs.minigamesapi.Arena;
 import com.comze_instancelabs.minigamesapi.ArenaSetup;
 import com.comze_instancelabs.minigamesapi.ArenaState;
@@ -69,15 +78,6 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	public boolean pvp = true;
 
 	public double mob_speed = 1.0;
-	public static boolean mode1_6 = false;
-	public static boolean mode1_7_5 = false;
-	public static boolean mode1_7_8 = false;
-	public static boolean mode1_7_10 = false;
-	public static boolean mode1_8 = false;
-	public static boolean mode1_8_3 = false;
-	public static boolean mode1_9 = false;
-	public static boolean mode1_9_4 = false;
-	public static boolean mode1_10 = false;
 	
 	public HashMap<String, Integer> ppoint = new HashMap<String, Integer>();
 	public ArrayList<String> p_used_kit = new ArrayList<String>();
@@ -86,35 +86,43 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		cmdhandler = new ICommandHandler();
 		m = this;
 		getServer().getPluginManager().registerEvents(this, this);
-		String version = Bukkit.getServer().getClass().getPackage().getName().substring(Bukkit.getServer().getClass().getPackage().getName().lastIndexOf(".") + 1);
-
-		if (version.contains("1_7_R1")) {
-			// default
-			getLogger().info("Turned on 1.7.2 mode.");
-		} else if (version.contains("1_7_R2")) {
-			mode1_7_5 = true;
-			getLogger().info("Turned on 1.7.5 mode.");
-		} else if (version.contains("1_7_R3")) {
-			mode1_7_8 = true;
-			getLogger().info("Turned on 1.7.8 mode.");
-		} else if (version.contains("1_7_R4")) {
-			mode1_7_10 = true;
-			getLogger().info("Turned on 1.7.10 mode.");
-		} else if (version.contains("1_8_R1")) {
-			mode1_8 = true;
-			getLogger().info("Turned on 1.8 mode.");
-		}  else if (version.contains("1_8_R2")) {
-			mode1_8_3 = true;
-			getLogger().info("Turned on 1.8.3 mode.");
-		} else if (version.contains("1_9_R1")) {
-			mode1_9 = true;
-			getLogger().info("Turned on 1.9 mode.");
-		} else if (version.contains("1_9_R2")) {
-			mode1_9_4 = true;
-			getLogger().info("Turned on 1.9.4 mode.");
-		} else if (version.contains("1_10_R1")) {
-			mode1_10 = true;
-			getLogger().info("Turned on 1.10 mode.");
+		switch (MinigamesAPI.SERVER_VERSION)
+		{
+		default:
+		case Unknown:
+			getLogger().info("incompatible version " + MinigamesAPI.SERVER_VERSION);
+			break;
+		case V1_10:
+		case V1_10_R1:
+			getLogger().info("Turned on 1.10R1 mode.");
+			break;
+		case V1_7:
+		case V1_7_R1:
+			getLogger().info("Turned on 1.7R1 mode.");
+			break;
+		case V1_7_R2:
+			getLogger().info("Turned on 1.7R2 mode.");
+			break;
+		case V1_7_R3:
+			getLogger().info("Turned on 1.7R3 mode.");
+			break;
+		case V1_7_R4:
+			getLogger().info("Turned on 1.7R4 mode.");
+			break;
+		case V1_8:
+		case V1_8_R1:
+			getLogger().info("Turned on 1.8R1 mode.");
+			break;
+		case V1_8_R2:
+			getLogger().info("Turned on 1.8R2 mode.");
+			break;
+		case V1_9:
+		case V1_9_R1:
+			getLogger().info("Turned on 1.9R1 mode.");
+			break;
+		case V1_9_R2:
+			getLogger().info("Turned on 1.9R2 mode.");
+			break;
 		}
 		registerEntities();
 
@@ -171,24 +179,35 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	}
 
 	private boolean registerEntities() {
-		if (mode1_7_5) {
-			return V1_7_5Dragon.registerEntities();
-		} else if (mode1_7_8) {
-			return V1_7_8Dragon.registerEntities();
-		} else if (mode1_7_10) {
-			return V1_7_10Dragon.registerEntities();
-		} else if (mode1_8) {
-			return V1_8Dragon.registerEntities();
-		} else if (mode1_8_3) {
-			return V1_8_3Dragon.registerEntities();
-		} else if (mode1_9) {
-			return V1_9Dragon.registerEntities();
-		} else if (mode1_9_4) {
-			return V1_9_4Dragon.registerEntities();
-		} else if (mode1_10) {
+
+		switch (MinigamesAPI.SERVER_VERSION)
+		{
+		default:
+		case Unknown:
+			return false;
+		case V1_10:
+		case V1_10_R1:
 			return V1_10Dragon.registerEntities();
+		case V1_7:
+		case V1_7_R1:
+			return V1_7Dragon.registerEntities();
+		case V1_7_R2:
+			return V1_7_5Dragon.registerEntities();
+		case V1_7_R3:
+			return V1_7_8Dragon.registerEntities();
+		case V1_7_R4:
+			return V1_7_10Dragon.registerEntities();
+		case V1_8:
+		case V1_8_R1:
+			return V1_8Dragon.registerEntities();
+		case V1_8_R2:
+			return V1_8_3Dragon.registerEntities();
+		case V1_9:
+		case V1_9_R1:
+			return V1_9Dragon.registerEntities();
+		case V1_9_R2:
+			return V1_9_4Dragon.registerEntities();
 		}
-		return V1_7Dragon.registerEntities();
 	}
 
 	public static ArrayList<Arena> loadArenas(JavaPlugin plugin, ArenasConfig cf) {
@@ -528,14 +547,66 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 
 	@Override
 	public AbstractDragon createDragon() {
-		// TODO Auto-generated method stub
-		return null;
+		switch (MinigamesAPI.SERVER_VERSION)
+		{
+		default:
+		case Unknown:
+			return null;
+		case V1_10:
+		case V1_10_R1:
+			return new V1_10Dragon();
+		case V1_7:
+		case V1_7_R1:
+			return new V1_7Dragon();
+		case V1_7_R2:
+			return new V1_7_5Dragon();
+		case V1_7_R3:
+			return new V1_7_8Dragon();
+		case V1_7_R4:
+			return new V1_7_10Dragon();
+		case V1_8:
+		case V1_8_R1:
+			return new V1_8Dragon();
+		case V1_8_R2:
+			return new V1_8_3Dragon();
+		case V1_9:
+		case V1_9_R1:
+			return new V1_9Dragon();
+		case V1_9_R2:
+			return new V1_9_4Dragon();
+		}
 	}
 
 	@Override
 	public AbstractWither createWither() {
-		// TODO Auto-generated method stub
-		return null;
+		switch (MinigamesAPI.SERVER_VERSION)
+		{
+		default:
+		case Unknown:
+			return null;
+		case V1_10:
+		case V1_10_R1:
+			return new V1_10Wither();
+		case V1_7:
+		case V1_7_R1:
+			return new V1_7Wither();
+		case V1_7_R2:
+			return new V1_7_5Wither();
+		case V1_7_R3:
+			return new V1_7_8Wither();
+		case V1_7_R4:
+			return new V1_7_10Wither();
+		case V1_8:
+		case V1_8_R1:
+			return new V1_8Wither();
+		case V1_8_R2:
+			return new V1_8_3Wither();
+		case V1_9:
+		case V1_9_R1:
+			return new V1_9Wither();
+		case V1_9_R2:
+			return new V1_9_4Wither();
+		}
 	}
 
 	@Override
