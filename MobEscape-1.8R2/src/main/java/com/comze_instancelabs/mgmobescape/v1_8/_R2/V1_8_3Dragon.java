@@ -108,7 +108,7 @@ public class V1_8_3Dragon implements AbstractDragon {
 		m.getLogger().info("DRAGON SPAWNED " + arena + " " + t.toString());
 		Object w = ((CraftWorld) t.getWorld()).getHandle();
 		ArrayList<Vector> temp = ((MEArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena)).getDragonWayPoints(arena);
-		if (temp == null) {
+		if (temp == null  || temp.isEmpty()) {
 			m.getLogger().severe("You forgot to set any FlyPoints! You need to have min. 2 and one of them has to be at finish.");
 			return null;
 		}
