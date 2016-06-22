@@ -1,6 +1,6 @@
 name: MGMobEscape
 main: com.comze_instancelabs.mgmobescape.Main
-version: ${version}
+version: ${minigames.releaseversion}-${minigames.timestamp}
 author: [instancelabs, TheMrQuake, mepeisen]
 softdepend: [Vault, MinigamesLib]
 depend: [MinigamesLib]
