@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.MCE-Plugins</groupId>
-	<artifactId>MobEscape-Plugin</artifactId>
+	<artifactId>MGMobEscape-Plugin</artifactId>
 	<version>1.14.9-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>MobEscape</name>
@@ -10,7 +10,7 @@
 
 	<parent>
 		<groupId>com.github.MCE-Plugins</groupId>
-		<artifactId>MobEscape-parent</artifactId>
+		<artifactId>MGMobEscape-parent</artifactId>
 		<version>1.14.9-SNAPSHOT</version>
 	</parent>
 
@@ -26,47 +26,47 @@
   		
 		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.7R1</artifactId>
+  			<artifactId>MGMobEscape-1.7R1</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.7R2</artifactId>
+  			<artifactId>MGMobEscape-1.7R2</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.7R3</artifactId>
+  			<artifactId>MGMobEscape-1.7R3</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.7R4</artifactId>
+  			<artifactId>MGMobEscape-1.7R4</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.8R1</artifactId>
+  			<artifactId>MGMobEscape-1.8R1</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.8R2</artifactId>
+  			<artifactId>MGMobEscape-1.8R2</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.9R1</artifactId>
+  			<artifactId>MGMobEscape-1.9R1</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.9R2</artifactId>
+  			<artifactId>MGMobEscape-1.9R2</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
   		<dependency>
 			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-1.10R1</artifactId>
+  			<artifactId>MGMobEscape-1.10R1</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
 	</dependencies>
@@ -118,7 +118,7 @@
 						<configuration>
 							<artifactSet>
 								<includes>
-									<include>com.github.MCE-Plugins:MobEscape*</include>
+									<include>com.github.MCE-Plugins:MGMobEscape*</include>
 								</includes>
 							</artifactSet>
 						</configuration>
