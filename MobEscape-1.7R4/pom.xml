@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.MCE-Plugins</groupId>
-	<artifactId>MobEscape-1.7R4</artifactId>
+	<artifactId>MGMobEscape-1.7R4</artifactId>
 	<version>1.14.9-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>MobEscape 1.7R4</name>
@@ -10,7 +10,7 @@
 
 	<parent>
 		<groupId>com.github.MCE-Plugins</groupId>
-		<artifactId>MobEscape-parent</artifactId>
+		<artifactId>MGMobEscape-parent</artifactId>
 		<version>1.14.9-SNAPSHOT</version>
 	</parent>
 
@@ -31,7 +31,7 @@
   		</dependency>
   		<dependency>
   			<groupId>com.github.MCE-Plugins</groupId>
-  			<artifactId>MobEscape-API</artifactId>
+  			<artifactId>MGMobEscape-API</artifactId>
   			<version>1.14.9-SNAPSHOT</version>
   		</dependency>
 	</dependencies>
