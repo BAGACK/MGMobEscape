@@ -26,6 +26,7 @@ import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Wither;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Dragon;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Wither;
 import com.comze_instancelabs.minigamesapi.Arena;
+import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaType;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 import com.comze_instancelabs.minigamesapi.PluginInstance;
@@ -61,8 +62,8 @@ public class IArena extends Arena implements MEArena {
 
 	@Override
 	public void start(boolean tp) {
-		this.lowbounds = Util.getComponentForArena(m, this.getName(), "bounds.low");
-		this.highbounds = Util.getComponentForArena(m, this.getName(), "bounds.high");
+		this.lowbounds = Util.getComponentForArena(m, this.getName(), ArenaConfigStrings.BOUNDS_LOW);
+		this.highbounds = Util.getComponentForArena(m, this.getName(), ArenaConfigStrings.BOUNDS_HIGH);
 		super.start(tp);
 	}
 
@@ -172,8 +173,8 @@ public class IArena extends Arena implements MEArena {
 		if (mobtype.equalsIgnoreCase("dragon")) {
 			final AbstractDragon ad = this.ad;
 
-			final Location l1 = Util.getComponentForArena(m, arena, "bounds.low");
-			final Location l2 = Util.getComponentForArena(m, arena, "bounds.high");
+			final Location l1 = Util.getComponentForArena(m, arena, ArenaConfigStrings.BOUNDS_LOW);
+			final Location l2 = Util.getComponentForArena(m, arena, ArenaConfigStrings.BOUNDS_HIGH);
 
 			int length1 = l1.getBlockX() - l2.getBlockX();
 			final int length2 = l1.getBlockY() - l2.getBlockY();
@@ -220,8 +221,8 @@ public class IArena extends Arena implements MEArena {
 
 			final AbstractWither aw = aw_;
 
-			final Location l1 = Util.getComponentForArena(m, arena, "bounds.low");
-			final Location l2 = Util.getComponentForArena(m, arena, "bounds.high");
+			final Location l1 = Util.getComponentForArena(m, arena, ArenaConfigStrings.BOUNDS_LOW);
+			final Location l2 = Util.getComponentForArena(m, arena, ArenaConfigStrings.BOUNDS_HIGH);
 
 			if (l1 != null && l2 != null) {
 				int length1 = l1.getBlockX() - l2.getBlockX();
