@@ -51,6 +51,7 @@ import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Wither;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Dragon;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Wither;
 import com.comze_instancelabs.minigamesapi.Arena;
+import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaSetup;
 import com.comze_instancelabs.minigamesapi.ArenaState;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
@@ -216,7 +217,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		if (!config.isSet("arenas")) {
 			return ret;
 		}
-		for (String arena : config.getConfigurationSection("arenas.").getKeys(false)) {
+		for (String arena : config.getConfigurationSection(ArenaConfigStrings.ARENAS_PREFIX).getKeys(false)) {
 			if (Validator.isArenaValid(plugin, arena, cf.getConfig())) {
 				ret.add(initArena(arena));
 			}
@@ -282,7 +283,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 						if (args[2].equalsIgnoreCase("dragon") || args[2].equalsIgnoreCase("wither")) {
 							Player p = (Player) sender;
 							ArenasConfig config = pli.getArenasConfig();
-							config.getConfig().set("arenas." + arena + ".mobtype", args[2]);
+							config.getConfig().set(ArenaConfigStrings.ARENAS_PREFIX + arena + ".mobtype", args[2]);
 							config.saveConfig();
 							IArena a = (IArena) pli.getArenaByName(arena);
 							if (a != null) {
@@ -410,10 +411,10 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	public static ArrayList<Location> getAllPoints(JavaPlugin plugin, String arena) {
 		FileConfiguration config = MinigamesAPI.getAPI().pinstances.get(plugin).getArenasConfig().getConfig();
 		ArrayList<Location> ret = new ArrayList<Location>();
-		if (!config.isSet("arenas." + arena + ".flypoint")) {
+		if (!config.isSet(ArenaConfigStrings.ARENAS_PREFIX + arena + ".flypoint")) {
 			return ret;
 		}
-		for (String spawn : config.getConfigurationSection("arenas." + arena + ".flypoint.").getKeys(false)) {
+		for (String spawn : config.getConfigurationSection(ArenaConfigStrings.ARENAS_PREFIX + arena + ".flypoint.").getKeys(false)) {
 			ret.add(Util.getComponentForArena(plugin, arena, "flypoint." + spawn));
 		}
 		return ret;

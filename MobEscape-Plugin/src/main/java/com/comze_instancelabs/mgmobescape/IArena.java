@@ -51,8 +51,8 @@ public class IArena extends Arena implements MEArena {
 	public IArena(Main m, String arena_id) {
 		super(m, arena_id, ArenaType.REGENERATION);
 		ArenasConfig config = MinigamesAPI.getAPI().pinstances.get(m).getArenasConfig();
-		if (config.getConfig().isSet("arenas." + this.getName() + ".mobtype")) {
-			this.mobtype = config.getConfig().getString("arenas." + this.getName() + ".mobtype");
+		if (config.getConfig().isSet(ArenaConfigStrings.ARENAS_PREFIX + this.getName() + ".mobtype")) {
+			this.mobtype = config.getConfig().getString(ArenaConfigStrings.ARENAS_PREFIX + this.getName() + ".mobtype");
 		} else {
 			this.mobtype = "dragon";
 		}
