@@ -452,7 +452,8 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			if (!event.hasItem()) {
 				return;
 			}
-			if (pli.global_players.get(p.getName()).getArenaState() != ArenaState.INGAME) {
+			final Arena arena = pli.global_players.get(p.getName());
+			if (arena.getArenaState() != ArenaState.INGAME) {
 				return;
 			}
 			int amount = event.getItem().getAmount();
@@ -468,7 +469,12 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			p.getInventory().clear();
 			p.updateInventory();
 			if (event.getItem().getTypeId() == 258) {
-				Vector direction = p.getLocation().getDirection().multiply(1.3D);
+				double factor = 1.3D;
+				if (this.getConfig().isSet(ArenaConfigStrings.ARENAS_PREFIX + arena.getInternalName() + ".jumpFactor"))
+				{
+					factor = this.getConfig().getDouble(ArenaConfigStrings.ARENAS_PREFIX + arena.getInternalName() + ".jumpFactor");
+				}
+				Vector direction = p.getLocation().getDirection().multiply(factor);
 				direction.setY(direction.getY() + 1.5);
 				p.setVelocity(direction);
 				event.setCancelled(true);
