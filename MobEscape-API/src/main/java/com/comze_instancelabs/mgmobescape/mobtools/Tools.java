@@ -47,45 +47,39 @@ public class Tools {
 				if (type.equalsIgnoreCase("dragon")) {
 					final AbstractDragon ad = a.getDragonUtil();
 
-					for (final Block b : ad.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2)) {
-						// Bukkit.getScheduler().runTask(m, new Runnable() {
-						// public void run() {
+					final Block[] loc = ad.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2);
+					a.getSmartReset().addChanged(loc);
+					for (final Block b : loc) {
 						if (b.getType() != Material.AIR) {
 							if (m.isSpawnFallingBlocks()) {
 								ad.playBlockBreakParticles(b.getLocation(), b.getType());
-								if (b.getType() != Material.WATER && b.getType() != Material.LAVA && m.isSpawnFallingBlocks()) {
+								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
 									FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
 									fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
 									fb.setDropItem(false);
 									fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
 								}
 							}
-							a.getSmartReset().addChanged(b, b.getType().equals(Material.CHEST));
 							b.setType(Material.AIR);
 						}
-						// }
-						// });
 					}
 				} else if (type.equalsIgnoreCase("wither")) {
 					final AbstractWither aw = a.getWitherUtil();
 
-					for (final Block b : aw.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2)) {
-						// Bukkit.getScheduler().runTask(m, new Runnable() {
-						// public void run() {
+					final Block[] loc = aw.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2);
+					a.getSmartReset().addChanged(loc);
+					for (final Block b : loc) {
 						if (b.getType() != Material.AIR) {
 							if (m.isSpawnFallingBlocks()) {
 								aw.playBlockBreakParticles(b.getLocation(), b.getType());
-								if (b.getType() != Material.WATER && b.getType() != Material.LAVA && m.isSpawnFallingBlocks()) {
+								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
 									FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
 									fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
 									fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
 								}
 							}
-							a.getSmartReset().addChanged(b, b.getType().equals(Material.CHEST));
 							b.setType(Material.AIR);
 						}
-						// }
-						// });
 					}
 
 				}
