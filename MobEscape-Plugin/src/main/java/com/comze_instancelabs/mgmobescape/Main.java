@@ -233,14 +233,14 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	}
 
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
-		cmdhandler.handleArgs(this, "mobescape", "/" + cmd.getName(), sender, args);
+		cmdhandler.handleArgs(this, MinigamesAPI.getAPI().getPermissionGamePrefix("mobescape"), "/" + cmd.getName(), sender, args);
 		if (args.length > 0) {
 			String action = args[0];
 			if (action.equalsIgnoreCase("setmobspawn")) {
 				if (args.length > 1) {
 					String arena = args[1];
 
-					if (!sender.hasPermission("mobescape.setup")) {
+					if (!sender.hasPermission(MinigamesAPI.getAPI().getPermissionGamePrefix("mobescape") + ".setup")) {
 						sender.sendMessage(pli.getMessagesConfig().no_perm);
 						return true;
 					}
@@ -258,7 +258,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 				if (args.length > 1) {
 					String arena = args[1];
 
-					if (!sender.hasPermission("mobescape.setup")) {
+					if (!sender.hasPermission(MinigamesAPI.getAPI().getPermissionGamePrefix("mobescape") + ".setup")) {
 						sender.sendMessage(pli.getMessagesConfig().no_perm);
 						return true;
 					}
@@ -275,7 +275,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 				if (args.length > 2) {
 					String arena = args[1];
 
-					if (!sender.hasPermission("mobescape.setup")) {
+					if (!sender.hasPermission(MinigamesAPI.getAPI().getPermissionGamePrefix("mobescape") + ".setup")) {
 						sender.sendMessage(pli.getMessagesConfig().no_perm);
 						return true;
 					}
