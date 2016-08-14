@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.MCE-Plugins</groupId>
 	<artifactId>MGMobEscape-1.7R3</artifactId>
-	<version>1.14.10-SNAPSHOT</version>
+	<version>1.14.10</version>
 	<packaging>jar</packaging>
 	<name>MobEscape 1.7R3</name>
 	<description>MobEscape Minigame for spigot 1.7R3</description>
@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.github.MCE-Plugins</groupId>
 		<artifactId>MGMobEscape-parent</artifactId>
-		<version>1.14.10-SNAPSHOT</version>
+		<version>1.14.10</version>
 	</parent>
 
 	<dependencies>
@@ -32,7 +32,7 @@
   		<dependency>
   			<groupId>com.github.MCE-Plugins</groupId>
   			<artifactId>MGMobEscape-API</artifactId>
-  			<version>1.14.10-SNAPSHOT</version>
+  			<version>1.14.10</version>
   		</dependency>
 	</dependencies>
 
