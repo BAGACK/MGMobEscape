@@ -2,19 +2,13 @@ package com.comze_instancelabs.mgmobescape.v1_7._R4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
-import net.minecraft.server.v1_7_R4.PacketPlayOutWorldEvent;
-
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitTask;
@@ -25,6 +19,8 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_7_R4.PacketPlayOutWorldEvent;
 
 public class V1_7_10Wither implements AbstractWither {
 
@@ -62,7 +58,7 @@ public class V1_7_10Wither implements AbstractWither {
 			removeWither(wither.get(arena));
 			wither.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 

@@ -2,11 +2,6 @@ package com.comze_instancelabs.mgmobescape.v1_8._R1;
 
 import java.util.ArrayList;
 
-import net.minecraft.server.v1_8_R1.DamageSource;
-import net.minecraft.server.v1_8_R1.EntityComplexPart;
-import net.minecraft.server.v1_8_R1.EntityWither;
-import net.minecraft.server.v1_8_R1.World;
-
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
@@ -15,6 +10,11 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.EntityComplexPart;
+import net.minecraft.server.v1_8_R1.EntityWither;
+import net.minecraft.server.v1_8_R1.World;
 
 public class MEWither extends EntityWither implements AbstractMEWither {
 
@@ -108,8 +108,7 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 			ArrayList<String> temp = arena.getAllPlayers();
 			for (String p : temp) {
 				if (m.getPPoint().containsKey(p)) {
-					System.out.println("p:" + m.getPPoint().get(p) + " d:" + currentid);
-					if (m.getPPoint().get(p) < currentid - 1) {
+						if (m.getPPoint().get(p) < currentid - 1) {
 						// player fell behind mob
 						arena.spectate(p);
 					}

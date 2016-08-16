@@ -1,6 +1,7 @@
 package com.comze_instancelabs.mgmobescape;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -89,7 +90,7 @@ public class IArenaScoreboard extends ArenaScoreboard {
 				Bukkit.getPlayer(p_).setScoreboard(ascore.get(arena.getName()));
 			}
 		} catch (Exception e) {
-			System.out.println("Failed setting Scoreboard: " + e.getMessage());
+			this.plugin.getLogger().log(Level.SEVERE, "Failed setting Scoreboard", e);
 		}
 	}
 

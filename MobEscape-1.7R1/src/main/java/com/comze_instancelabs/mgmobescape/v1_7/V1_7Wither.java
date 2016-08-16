@@ -2,6 +2,7 @@ package com.comze_instancelabs.mgmobescape.v1_7;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -61,7 +62,7 @@ public class V1_7Wither implements AbstractWither {
 			removeWither(wither.get(arena));
 			wither.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 	

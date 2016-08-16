@@ -3,6 +3,7 @@ package com.comze_instancelabs.mgmobescape.v1_7;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -56,7 +57,7 @@ public class V1_7Dragon implements AbstractDragon {
 			HashMap g_map = (HashMap) g.get(null);
 			g_map.put("MEWither", Integer.valueOf(64));
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
 			return false;
 		}
 
@@ -90,7 +91,7 @@ public class V1_7Dragon implements AbstractDragon {
 
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
 			return false;
 		}
 	}
@@ -127,7 +128,7 @@ public class V1_7Dragon implements AbstractDragon {
 			removeEnderdragon(dragons.get(arena));
 			dragons.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 

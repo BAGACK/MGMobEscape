@@ -2,6 +2,7 @@ package com.comze_instancelabs.mgmobescape.v1_8._R2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import net.minecraft.server.v1_8_R2.BlockPosition;
 import net.minecraft.server.v1_8_R2.PacketPlayOutWorldEvent;
@@ -58,7 +59,7 @@ public class V1_8_3Wither implements AbstractWither {
 			removeWither(wither.get(arena));
 			wither.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 
