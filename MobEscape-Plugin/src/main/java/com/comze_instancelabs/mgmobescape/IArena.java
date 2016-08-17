@@ -25,6 +25,8 @@ import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Dragon;
 import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Wither;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Dragon;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Wither;
+import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_8Dragon;
+import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_8Wither;
 import com.comze_instancelabs.minigamesapi.Arena;
 import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaType;
@@ -111,6 +113,10 @@ public class IArena extends Arena implements MEArena {
 				ad = new V1_8_3Dragon();
 				setDragon(V1_8_3Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
 				break;
+			case V1_8_R3:
+				ad = new V1_8_8Dragon();
+				setDragon(V1_8_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				break;
 			case V1_9:
 			case V1_9_R1:
 				ad = new V1_9Dragon();
@@ -157,6 +163,10 @@ public class IArena extends Arena implements MEArena {
 			case V1_8_R2:
 				aw = new V1_8_3Wither();
 				setWither(V1_8_3Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				break;
+			case V1_8_R3:
+				aw = new V1_8_8Wither();
+				setWither(V1_8_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
 				break;
 			case V1_9:
 			case V1_9_R1:
