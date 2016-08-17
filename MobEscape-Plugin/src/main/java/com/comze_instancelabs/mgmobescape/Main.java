@@ -51,6 +51,8 @@ import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Dragon;
 import com.comze_instancelabs.mgmobescape.v1_8._R1.V1_8Wither;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Dragon;
 import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_3Wither;
+import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_8Dragon;
+import com.comze_instancelabs.mgmobescape.v1_8._R2.V1_8_8Wither;
 import com.comze_instancelabs.minigamesapi.Arena;
 import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaSetup;
@@ -117,6 +119,9 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			break;
 		case V1_8_R2:
 			getLogger().info("Turned on 1.8R2 mode.");
+			break;
+		case V1_8_R3:
+			getLogger().info("Turned on 1.8R3 mode.");
 			break;
 		case V1_9:
 		case V1_9_R1:
@@ -199,6 +204,8 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			return V1_8Dragon.registerEntities();
 		case V1_8_R2:
 			return V1_8_3Dragon.registerEntities();
+		case V1_8_R3:
+			return V1_8_8Dragon.registerEntities();
 		case V1_9:
 		case V1_9_R1:
 			return V1_9Dragon.registerEntities();
@@ -570,6 +577,8 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			return new V1_8Dragon();
 		case V1_8_R2:
 			return new V1_8_3Dragon();
+		case V1_8_R3:
+			return new V1_8_8Dragon();
 		case V1_9:
 		case V1_9_R1:
 			return new V1_9Dragon();
@@ -602,6 +611,8 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			return new V1_8Wither();
 		case V1_8_R2:
 			return new V1_8_3Wither();
+		case V1_8_R3:
+			return new V1_8_8Wither();
 		case V1_9:
 		case V1_9_R1:
 			return new V1_9Wither();
