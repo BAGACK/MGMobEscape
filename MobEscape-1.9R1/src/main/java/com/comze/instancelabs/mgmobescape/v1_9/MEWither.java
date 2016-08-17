@@ -108,7 +108,6 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 			ArrayList<String> temp = arena.getAllPlayers();
 			for (String p : temp) {
 				if (m.getPPoint().containsKey(p)) {
-					System.out.println("p:" + m.getPPoint().get(p) + " d:" + currentid);
 					if (m.getPPoint().get(p) < currentid - 1) {
 						// player fell behind mob
 						arena.spectate(p);

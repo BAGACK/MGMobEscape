@@ -3,20 +3,13 @@ package com.comze_instancelabs.mgmobescape.v1_7._R3;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
-import net.minecraft.server.v1_7_R3.EntityTypes;
-import net.minecraft.server.v1_7_R3.PacketPlayOutWorldEvent;
-
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitTask;
@@ -27,6 +20,9 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_7_R3.EntityTypes;
+import net.minecraft.server.v1_7_R3.PacketPlayOutWorldEvent;
 
 public class V1_7_8Dragon implements AbstractDragon {
 
@@ -62,7 +58,7 @@ public class V1_7_8Dragon implements AbstractDragon {
 			HashMap g_map = (HashMap) g.get(null);
 			g_map.put("MEWither", Integer.valueOf(64));
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
 			return false;
 		}
 		
@@ -97,7 +93,7 @@ public class V1_7_8Dragon implements AbstractDragon {
 
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
 			return false;
 		}
 	}
@@ -136,7 +132,7 @@ public class V1_7_8Dragon implements AbstractDragon {
 			removeEnderdragon(dragons.get(arena));
 			dragons.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 	

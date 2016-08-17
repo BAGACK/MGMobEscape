@@ -16,7 +16,7 @@ import net.minecraft.server.v1_7_R2.EntityComplexPart;
 import net.minecraft.server.v1_7_R2.EntityWither;
 import net.minecraft.server.v1_7_R2.World;
 
-public class MEWither extends EntityWither implements AbstractMEWither{
+public class MEWither extends EntityWither implements AbstractMEWither {
 
 	private boolean onGround = false;
 	private ArrayList<Vector> points = new ArrayList();
@@ -26,7 +26,7 @@ public class MEWither extends EntityWither implements AbstractMEWither{
 	private double Z;
 	private MEMain m;
 	private MEArena arena;
-	
+
 	public MEWither(MEMain m, String arena, Location loc, World world, ArrayList<Vector> p) {
 		super(world);
 		this.m = m;
@@ -50,12 +50,13 @@ public class MEWither extends EntityWither implements AbstractMEWither{
 		} else {
 			yaw = 270F;
 		}
-		
+
 		double disX = (this.locX - points.get(currentid).getX());
 		double disY = (this.locY - points.get(currentid).getY());
 		double disZ = (this.locZ - points.get(currentid).getZ());
 
-		double tick = Math.sqrt(disX * disX + disY * disY + disZ * disZ) * 2 / m.getMobSpeed() * Math.pow(0.98, currentid);
+		double tick = Math.sqrt(disX * disX + disY * disY + disZ * disZ) * 2 / m.getMobSpeed()
+				* Math.pow(0.98, currentid);
 
 		this.X = (Math.abs(disX) / tick);
 		this.Y = (Math.abs(disY) / tick);
@@ -80,35 +81,39 @@ public class MEWither extends EntityWither implements AbstractMEWither{
 		return false;
 	}
 
-	public Vector getCurrentPosition(){
+	public Vector getCurrentPosition() {
 		return points.get(currentid);
 	}
-	
-	public Vector getCurrentPositionNext(){
-		if(currentid + 1 < points.size() - 1){
+
+	public Vector getCurrentPositionNext() {
+		if (currentid + 1 < points.size() - 1) {
 			return points.get(currentid + 1);
 		}
 		return points.get(currentid);
 	}
-	
+
 	public Vector getNextPosition() {
-		
+
 		double tempx = this.locX;
 		double tempy = this.locY;
 		double tempz = this.locZ;
 
-		if (((Math.abs((int) tempx - points.get(currentid).getX()) <= 1) && (Math.abs((int) tempz - points.get(currentid).getZ()) <= 3) && (Math.abs((int) tempy - points.get(currentid).getY()) <= 5)) || ((Math.abs((int) tempz - points.get(currentid).getZ()) <= 0) && (Math.abs((int) tempx - points.get(currentid).getX()) <= 3) && (Math.abs((int) tempy - points.get(currentid).getY()) <= 5))) {
+		if (((Math.abs((int) tempx - points.get(currentid).getX()) <= 1)
+				&& (Math.abs((int) tempz - points.get(currentid).getZ()) <= 3)
+				&& (Math.abs((int) tempy - points.get(currentid).getY()) <= 5))
+				|| ((Math.abs((int) tempz - points.get(currentid).getZ()) <= 0)
+						&& (Math.abs((int) tempx - points.get(currentid).getX()) <= 3)
+						&& (Math.abs((int) tempy - points.get(currentid).getY()) <= 5))) {
 			if (currentid < points.size() - 1) {
 				currentid += 1;
 			} else {
 				// finish
 				arena.stop();
 			}
-			
+
 			ArrayList<String> temp = arena.getAllPlayers();
 			for (String p : temp) {
 				if (m.getPPoint().containsKey(p)) {
-					System.out.println("p:" + m.getPPoint().get(p) + " d:" + currentid);
 					if (m.getPPoint().get(p) < currentid - 1) {
 						// player fell behind mob
 						arena.spectate(p);
@@ -119,14 +124,16 @@ public class MEWither extends EntityWither implements AbstractMEWither{
 			double disX = (this.locX - points.get(currentid).getX());
 			double disY = (this.locY - points.get(currentid).getY());
 			double disZ = (this.locZ - points.get(currentid).getZ());
-			
-			double tick_ = Math.sqrt(disX * disX + disY * disY + disZ * disZ) * 2 / m.getMobSpeed() * Math.pow(0.98, currentid);
+
+			double tick_ = Math.sqrt(disX * disX + disY * disY + disZ * disZ) * 2 / m.getMobSpeed()
+					* Math.pow(0.98, currentid);
 
 			this.X = (Math.abs(disX) / tick_);
 			this.Y = (Math.abs(disY) / tick_);
 			this.Z = (Math.abs(disZ) / tick_);
 
-			Tools.setYawPitchWither(arena.getWither(), new Vector(this.locX, this.locY, this.locZ), points.get(currentid));
+			Tools.setYawPitchWither(arena.getWither(), new Vector(this.locX, this.locY, this.locZ),
+					points.get(currentid));
 
 		}
 
@@ -149,10 +156,10 @@ public class MEWither extends EntityWither implements AbstractMEWither{
 		else {
 			tempz -= this.Z;
 		}
-		
+
 		return new Vector(tempx, tempy, tempz);
 	}
-	
+
 	@Override
 	public void setYawPitch(float yaw, float pitch) {
 		this.yaw = yaw;

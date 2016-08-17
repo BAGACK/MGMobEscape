@@ -2,9 +2,7 @@ package com.comze.instancelabs.mgmobescape.v1_10;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.minecraft.server.v1_10_R1.BlockPosition;
-import net.minecraft.server.v1_10_R1.PacketPlayOutWorldEvent;
+import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +19,9 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_10_R1.BlockPosition;
+import net.minecraft.server.v1_10_R1.PacketPlayOutWorldEvent;
 
 public class V1_10Wither implements AbstractWither {
 
@@ -58,7 +59,7 @@ public class V1_10Wither implements AbstractWither {
 			removeWither(wither.get(arena));
 			wither.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 

@@ -3,6 +3,7 @@ package com.comze_instancelabs.mgmobescape;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -158,12 +159,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			pli.getArenaListener().loseY = 100;
 		}
 
-		try {
-			pinstance.getClass().getMethod("setAchievementGuiEnabled", boolean.class);
-			pinstance.setAchievementGuiEnabled(true);
-		} catch (NoSuchMethodException e) {
-			System.out.println("Update your MinigamesLib to the latest version to use the Achievement Gui.");
-		}
+		pinstance.setAchievementGuiEnabled(true);
 
 		boolean continue_ = false;
 		for (Method m : pli.getArenaAchievements().getClass().getMethods()) {
@@ -395,15 +391,13 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 								}
 							}
 						} else {
-							System.out.println("You forgot to set boundaries, this will cause bugs. Please fix your setup.");
+							this.getLogger().severe("You forgot to set boundaries, this will cause bugs. Please fix your setup.");
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			for (StackTraceElement et : e.getStackTrace()) {
-				System.out.println(et);
-			}
+			this.getLogger().log(Level.SEVERE, "Failed onMove", e);
 		}
 
 	}

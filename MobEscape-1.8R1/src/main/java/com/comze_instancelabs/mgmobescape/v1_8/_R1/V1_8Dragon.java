@@ -3,10 +3,7 @@ package com.comze_instancelabs.mgmobescape.v1_8._R1;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.minecraft.server.v1_8_R1.BlockPosition;
-import net.minecraft.server.v1_8_R1.EntityTypes;
-import net.minecraft.server.v1_8_R1.PacketPlayOutWorldEvent;
+import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,6 +20,10 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_8_R1.BlockPosition;
+import net.minecraft.server.v1_8_R1.EntityTypes;
+import net.minecraft.server.v1_8_R1.PacketPlayOutWorldEvent;
 
 public class V1_8Dragon implements AbstractDragon {
 
@@ -57,7 +58,7 @@ public class V1_8Dragon implements AbstractDragon {
 			HashMap g_map = (HashMap) g.get(null);
 			g_map.put("MEWither", Integer.valueOf(64));
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
 			return false;
 		}
 
@@ -91,7 +92,7 @@ public class V1_8Dragon implements AbstractDragon {
 
 			return true;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
 			return false;
 		}
 	}
@@ -114,7 +115,6 @@ public class V1_8Dragon implements AbstractDragon {
 		}
 		MEDragon t_ = new MEDragon(m, arena, t, (net.minecraft.server.v1_8_R1.World) ((CraftWorld) t.getWorld()).getHandle(), temp);
 		((net.minecraft.server.v1_8_R1.World) w).addEntity(t_, CreatureSpawnEvent.SpawnReason.CUSTOM);
-		System.out.println(((net.minecraft.server.v1_8_R1.World) w).entityList.contains(t_));
 		t_.setCustomName(m.getDragonName());
 		dragons.put(arena, t_);
 		return t_;
@@ -125,7 +125,7 @@ public class V1_8Dragon implements AbstractDragon {
 			removeEnderdragon(dragons.get(arena));
 			dragons.put(arena, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 

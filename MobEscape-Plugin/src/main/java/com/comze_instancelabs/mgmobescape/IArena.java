@@ -255,7 +255,7 @@ public class IArena extends Arena implements MEArena {
 					}
 				}, 3 + 20, 3);
 			} else {
-				System.out.println("You didn't set boundaries, thus the wither/dragon won't move nor destroy anything. Please correct your setup.");
+				getPlugin().getLogger().severe("You didn't set boundaries, thus the wither/dragon won't move nor destroy anything. Please correct your setup.");
 			}
 
 		}
