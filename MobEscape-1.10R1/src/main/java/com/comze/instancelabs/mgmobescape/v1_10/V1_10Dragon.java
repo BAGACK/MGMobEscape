@@ -162,7 +162,6 @@ public class V1_10Dragon implements AbstractDragon {
 	@Override
 	public boolean isDragon(LivingEntity entity) {
 		final EntityLiving handle = ((CraftLivingEntity)entity).getHandle();
-		System.out.println(handle);
 		return handle instanceof MEDragon;
 	}
 
