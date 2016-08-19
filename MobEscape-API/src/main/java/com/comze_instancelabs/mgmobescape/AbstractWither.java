@@ -3,6 +3,7 @@ package com.comze_instancelabs.mgmobescape;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -17,5 +18,7 @@ public interface AbstractWither {
 	public Block[] getLoc(MEMain m, final Location l, String arena, int i, int j, Location l2);
 
 	public void playBlockBreakParticles(final Location loc, final Material m, final Player... players);
+
+	public boolean isWither(LivingEntity entity);
 	
 }
