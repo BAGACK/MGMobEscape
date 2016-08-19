@@ -41,7 +41,6 @@ public class IArenaListener extends ArenaListener {
 	{
 		// allow spawn of our own dragons/withers
 		final LivingEntity entity = evt.getEntity();
-		System.out.println(entity);
 		if (entity instanceof EnderDragon || entity instanceof Wither)
 		{
 			for (final Arena arena : this.pli.getArenas())
