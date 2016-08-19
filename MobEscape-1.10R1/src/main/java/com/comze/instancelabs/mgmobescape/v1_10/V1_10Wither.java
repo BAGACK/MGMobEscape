@@ -8,7 +8,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitTask;
@@ -88,6 +90,11 @@ public class V1_10Wither implements AbstractWither {
 
 	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2) {
 		Tools.destroy(m, l, l2, arena, length2, "wither", false, true);
+	}
+
+	@Override
+	public boolean isWither(LivingEntity entity) {
+		return ((CraftLivingEntity)entity).getHandle() instanceof MEWither;
 	}
 
 }

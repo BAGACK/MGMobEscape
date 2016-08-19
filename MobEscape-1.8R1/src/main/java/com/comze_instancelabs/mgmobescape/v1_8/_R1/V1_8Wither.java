@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import net.minecraft.server.v1_8_R1.BlockPosition;
-import net.minecraft.server.v1_8_R1.PacketPlayOutWorldEvent;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_8_R1.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitTask;
@@ -22,6 +21,9 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_8_R1.BlockPosition;
+import net.minecraft.server.v1_8_R1.PacketPlayOutWorldEvent;
 
 public class V1_8Wither implements AbstractWither {
 
@@ -88,6 +90,11 @@ public class V1_8Wither implements AbstractWither {
 
 	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2) {
 		Tools.destroy(m, l, l2, arena, length2, "wither", false, true);
+	}
+
+	@Override
+	public boolean isWither(LivingEntity entity) {
+		return ((CraftLivingEntity)entity).getHandle() instanceof MEWither;
 	}
 
 }

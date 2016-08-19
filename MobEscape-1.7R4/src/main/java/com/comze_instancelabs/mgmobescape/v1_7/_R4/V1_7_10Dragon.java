@@ -9,7 +9,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitTask;
@@ -165,6 +167,11 @@ public class V1_7_10Dragon implements AbstractDragon {
 
 	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2) {
 		Tools.destroy(m, l, l2, arena, length2, "dragon", false, true);
+	}
+
+	@Override
+	public boolean isDragon(LivingEntity entity) {
+		return ((CraftLivingEntity)entity).getHandle() instanceof MEDragon;
 	}
 
 }

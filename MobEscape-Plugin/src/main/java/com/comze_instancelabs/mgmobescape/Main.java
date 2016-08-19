@@ -133,13 +133,16 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		}
 		registerEntities();
 
-		api = MinigamesAPI.getAPI().setupAPI(this, "mobescape", IArena.class, new ArenasConfig(this), new MessagesConfig(this), new IClassesConfig(this), new StatsConfig(this, false), new DefaultConfig(this, false), false);
+		api = MinigamesAPI.getAPI().setupAPI(this, "mobescape", IArena.class, new ArenasConfig(this), new MessagesConfig(this), new IClassesConfig(this), new StatsConfig(this, false), new DefaultConfig(this, false), true);
 		PluginInstance pinstance = api.pinstances.get(this);
 		pinstance.addLoadedArenas(loadArenas(this, pinstance.getArenasConfig()));
 		pinstance.arenaSetup = new IArenaSetup();
 		IArenaScoreboard score = new IArenaScoreboard(this);
 		pinstance.scoreboardManager = score;
 		scoreboard = score;
+		IArenaListener listener = new IArenaListener(this, pinstance, "snake");
+		pinstance.setArenaListener(listener);
+		MinigamesAPI.getAPI().registerArenaListenerLater(this, listener);
 		pli = pinstance;
 
 		this.getConfig().addDefault("config.mob_name", "Dragon");
