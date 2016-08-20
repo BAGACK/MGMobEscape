@@ -40,7 +40,8 @@ public class Tools {
 	}
 
 	// the boolean parameters in this function are not used anymore
-	public static void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, String type, boolean mode1_6, boolean mode1_7_5) {
+	public static void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, String type, boolean mode1_6, boolean mode1_7_5, int blockRatio) {
+		int ratio = 0;
 		final MEArena a = (MEArena) m.getPluginInstance().getArenaByName(arena);
 		for (int i = 0; i < m.getDestroyRadius(); i++) { // length1
 			for (int j = 0; j < m.getDestroyRadius(); j++) {
@@ -54,10 +55,14 @@ public class Tools {
 							if (m.isSpawnFallingBlocks()) {
 								ad.playBlockBreakParticles(b.getLocation(), b.getType());
 								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
-									FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-									fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
-									fb.setDropItem(false);
-									fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
+									ratio += blockRatio;
+									if (ratio >= 100) {
+										FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+										fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
+										fb.setDropItem(false);
+										fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
+										ratio = 0;
+									}
 								}
 							}
 							b.setType(Material.AIR);
@@ -73,9 +78,14 @@ public class Tools {
 							if (m.isSpawnFallingBlocks()) {
 								aw.playBlockBreakParticles(b.getLocation(), b.getType());
 								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
-									FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-									fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
-									fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
+									ratio += blockRatio;
+									if (ratio >= 100) {
+										FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+										fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
+										fb.setDropItem(false);
+										fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
+										ratio = 0;
+									}
 								}
 							}
 							b.setType(Material.AIR);

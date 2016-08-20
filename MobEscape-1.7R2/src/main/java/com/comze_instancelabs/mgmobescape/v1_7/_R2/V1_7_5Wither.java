@@ -94,8 +94,8 @@ public class V1_7_5Wither implements AbstractWither {
 		}
 	}
 	
-	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2){
-		Tools.destroy(m, l, l2, arena, length2, "wither", false, true);
+	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, int blockRatio){
+		Tools.destroy(m, l, l2, arena, length2, "wither", false, true, blockRatio);
 	}
 
 	@Override

@@ -49,10 +49,14 @@ public class IArena extends Arena implements MEArena {
 
 	public Location lowbounds = null;
 	public Location highbounds = null;
+	
+	/** falling block ratio. */
+	private int blockRatio = 100;
 
 	public IArena(Main m, String arena_id) {
 		super(m, arena_id, ArenaType.REGENERATION);
 		ArenasConfig config = MinigamesAPI.getAPI().pinstances.get(m).getArenasConfig();
+		this.blockRatio = config.getConfig().getInt(ArenaConfigStrings.ARENAS_PREFIX + this.getName() + ".falling_block_ratio", 100);
 		if (config.getConfig().isSet(ArenaConfigStrings.ARENAS_PREFIX + this.getName() + ".mobtype")) {
 			this.mobtype = config.getConfig().getString(ArenaConfigStrings.ARENAS_PREFIX + this.getName() + ".mobtype");
 		} else {
@@ -215,7 +219,7 @@ public class IArena extends Arena implements MEArena {
 							}
 						}
 
-						ad.destroy(m, l1, l2, arena, length2);
+						ad.destroy(m, l1, l2, arena, length2, blockRatio);
 
 						m.scoreboard.updateScoreboard(a);
 					}
@@ -260,7 +264,7 @@ public class IArena extends Arena implements MEArena {
 								getWither().setPosition(v.getX(), v.getY(), v.getZ());
 							}
 
-							aw.destroy(m, l1, l2, arena, length2);
+							aw.destroy(m, l1, l2, arena, length2, blockRatio);
 						}
 					}
 				}, 3 + 20, 3);

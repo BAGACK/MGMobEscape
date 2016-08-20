@@ -13,7 +13,7 @@ public interface AbstractWither {
 
 	public void stop(final MEMain m, BukkitTask t, final String arena);
 
-	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2);
+	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, int blockRatio);
 
 	public Block[] getLoc(MEMain m, final Location l, String arena, int i, int j, Location l2);
 

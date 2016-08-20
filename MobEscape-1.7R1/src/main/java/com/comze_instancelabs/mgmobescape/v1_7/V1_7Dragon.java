@@ -157,8 +157,8 @@ public class V1_7Dragon implements AbstractDragon {
 		return b;
 	}
 
-	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2) {
-		Tools.destroy(m, l, l2, arena, length2, "dragon", false, false);
+	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, int blockRatio) {
+		Tools.destroy(m, l, l2, arena, length2, "dragon", false, false, blockRatio);
 	}
 
 	@Override
