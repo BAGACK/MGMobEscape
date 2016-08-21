@@ -140,7 +140,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		IArenaScoreboard score = new IArenaScoreboard(this);
 		pinstance.scoreboardManager = score;
 		scoreboard = score;
-		IArenaListener listener = new IArenaListener(this, pinstance, "snake");
+		IArenaListener listener = new IArenaListener(this, pinstance, "mobescape");
 		pinstance.setArenaListener(listener);
 		MinigamesAPI.getAPI().registerArenaListenerLater(this, listener);
 		pli = pinstance;
