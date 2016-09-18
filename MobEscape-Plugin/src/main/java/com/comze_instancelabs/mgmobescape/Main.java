@@ -78,7 +78,6 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	public String dragon_name = "Dragon";
 	public boolean spawn_falling_blocks = true;
 	public boolean all_living_players_win = true;
-	public boolean die_below_zero = false;
 	public boolean pvp = true;
 
 	public double mob_speed = 1.0;
@@ -150,7 +149,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.getConfig().addDefault("config.destroy_radius", destroy_radius);
 		this.getConfig().addDefault("config.spawn_falling_blocks", spawn_falling_blocks);
 		this.getConfig().addDefault("config.all_living_players_win", all_living_players_win);
-		this.getConfig().addDefault("config.die_below_bedrock_level", false);
+		this.getConfig().addDefault("config.die_below_bedrock_level", 4);
 		this.getConfig().addDefault("config.allow_player_pvp", true);
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
@@ -160,11 +159,18 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.destroy_radius = this.getConfig().getInt("config.destroy_radius");
 		this.spawn_falling_blocks = this.getConfig().getBoolean("config.spawn_falling_blocks");
 		this.all_living_players_win = this.getConfig().getBoolean("config.all_living_players_win");
-		this.die_below_zero = this.getConfig().getBoolean("config.die_below_bedrock_level");
 		this.pvp = this.getConfig().getBoolean("config.allow_player_pvp");
 
-		if (die_below_zero) {
-			pli.getArenaListener().loseY = 100;
+		if (this.getConfig().isBoolean("config.die_below_bedrock_level"))
+		{
+			boolean die_below_zero = this.getConfig().getBoolean("config.die_below_bedrock_level");
+			if (die_below_zero) {
+				pli.getArenaListener().loseY = 100;
+			}
+		}
+		else
+		{
+			pli.getArenaListener().loseY = this.getConfig().getInt("config.die_below_bedrock_level");
 		}
 
 		pinstance.setAchievementGuiEnabled(true);
