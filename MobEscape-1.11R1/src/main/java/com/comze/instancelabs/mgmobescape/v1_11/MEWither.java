@@ -1,4 +1,4 @@
-package com.comze.instancelabs.mgmobescape.v1_9;
+package com.comze.instancelabs.mgmobescape.v1_11;
 
 import java.util.ArrayList;
 
@@ -11,10 +11,10 @@ import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 
-import net.minecraft.server.v1_9_R1.DamageSource;
-import net.minecraft.server.v1_9_R1.EntityComplexPart;
-import net.minecraft.server.v1_9_R1.EntityWither;
-import net.minecraft.server.v1_9_R1.World;
+import net.minecraft.server.v1_11_R1.DamageSource;
+import net.minecraft.server.v1_11_R1.EntityComplexPart;
+import net.minecraft.server.v1_11_R1.EntityWither;
+import net.minecraft.server.v1_11_R1.World;
 
 public class MEWither extends EntityWither implements AbstractMEWither {
 
@@ -63,7 +63,7 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 	}
 
 	@Override
-	public void m() {
+	public void A_() {
 		return;
 	}
 

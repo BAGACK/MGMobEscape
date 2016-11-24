@@ -18,6 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import com.comze_instancelabs.mgmobescape.AbstractDragon;
+import com.comze_instancelabs.mgmobescape.AbstractMEDragon;
 import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
@@ -106,7 +107,7 @@ public class V1_7Dragon implements AbstractDragon {
 		}
 	}
 
-	public static MEDragon spawnEnderdragon(MEMain m, String arena, Location t) {
+	public static AbstractMEDragon spawnEnderdragon(MEMain m, String arena, Location t) {
 		/*
 		 * if(dragons.containsKey(arena)){ return dragons.get(arena); }
 		 */

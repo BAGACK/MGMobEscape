@@ -16,6 +16,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import com.comze_instancelabs.mgmobescape.AbstractMEWither;
 import com.comze_instancelabs.mgmobescape.AbstractWither;
 import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
@@ -38,7 +39,7 @@ public class V1_7Wither implements AbstractWither {
 	}
 	
 	
-	public static MEWither spawnWither(MEMain m, String arena, Location t) {
+	public static AbstractMEWither spawnWither(MEMain m, String arena, Location t) {
 		/*if(dragons.containsKey(arena)){
 			return wither.get(arena);
 		}*/

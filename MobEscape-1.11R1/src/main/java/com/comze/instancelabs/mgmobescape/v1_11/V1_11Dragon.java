@@ -1,6 +1,5 @@
-package com.comze.instancelabs.mgmobescape.v1_9_R2;
+package com.comze.instancelabs.mgmobescape.v1_11;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -8,9 +7,9 @@ import java.util.logging.Level;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_9_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -24,80 +23,27 @@ import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 
-import net.minecraft.server.v1_9_R2.BlockPosition;
-import net.minecraft.server.v1_9_R2.EntityTypes;
-import net.minecraft.server.v1_9_R2.PacketPlayOutWorldEvent;
+import net.minecraft.server.v1_11_R1.BlockPosition;
+import net.minecraft.server.v1_11_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.EntityTypes;
+import net.minecraft.server.v1_11_R1.MinecraftKey;
+import net.minecraft.server.v1_11_R1.PacketPlayOutWorldEvent;
 
-public class V1_9_4Dragon implements AbstractDragon {
+public class V1_11Dragon implements AbstractDragon {
 
 	public static HashMap<String, MEDragon> dragons = new HashMap<String, MEDragon>();
 
 	public static boolean registerEntities() {
-		try {
-			Class entityTypeClass = EntityTypes.class;
-
-			Field c = entityTypeClass.getDeclaredField("c");
-			c.setAccessible(true);
-			HashMap c_map = (HashMap) c.get(null);
-			c_map.put("MEWither", MEWither.class);
-
-			Field d = entityTypeClass.getDeclaredField("d");
-			d.setAccessible(true);
-			HashMap d_map = (HashMap) d.get(null);
-			d_map.put(MEWither.class, "MEWither");
-
-			Field e = entityTypeClass.getDeclaredField("e");
-			e.setAccessible(true);
-			HashMap e_map = (HashMap) e.get(null);
-			e_map.put(Integer.valueOf(64), MEWither.class);
-
-			Field f = entityTypeClass.getDeclaredField("f");
-			f.setAccessible(true);
-			HashMap f_map = (HashMap) f.get(null);
-			f_map.put(MEWither.class, Integer.valueOf(64));
-
-			Field g = entityTypeClass.getDeclaredField("g");
-			g.setAccessible(true);
-			HashMap g_map = (HashMap) g.get(null);
-			g_map.put("MEWither", Integer.valueOf(64));
-		} catch (Exception ex) {
-			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
-			return false;
-		}
-
-		try {
-			Class entityTypeClass = EntityTypes.class;
-
-			Field c = entityTypeClass.getDeclaredField("c");
-			c.setAccessible(true);
-			HashMap c_map = (HashMap) c.get(null);
-			c_map.put("MEDragon", MEDragon.class);
-
-			Field d = entityTypeClass.getDeclaredField("d");
-			d.setAccessible(true);
-			HashMap d_map = (HashMap) d.get(null);
-			d_map.put(MEDragon.class, "MEDragon");
-
-			Field e = entityTypeClass.getDeclaredField("e");
-			e.setAccessible(true);
-			HashMap e_map = (HashMap) e.get(null);
-			e_map.put(Integer.valueOf(63), MEDragon.class);
-
-			Field f = entityTypeClass.getDeclaredField("f");
-			f.setAccessible(true);
-			HashMap f_map = (HashMap) f.get(null);
-			f_map.put(MEDragon.class, Integer.valueOf(63));
-
-			Field g = entityTypeClass.getDeclaredField("g");
-			g.setAccessible(true);
-			HashMap g_map = (HashMap) g.get(null);
-			g_map.put("MEDragon", Integer.valueOf(63));
-
-			return true;
-		} catch (Exception ex) {
-			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", ex);
-			return false;
-		}
+		
+		MinecraftKey localMinecraftKey = new MinecraftKey("MEWither");
+		EntityTypes.b.a(64, localMinecraftKey, MEWither.class);
+		EntityTypes.d.add(localMinecraftKey);
+		
+		localMinecraftKey = new MinecraftKey("MEDragon");
+		EntityTypes.b.a(63, localMinecraftKey, MEDragon.class);
+		EntityTypes.d.add(localMinecraftKey);
+		
+		return true;
 	}
 
 	public void playBlockBreakParticles(final Location loc, final Material m, final Player... players) {
@@ -112,12 +58,12 @@ public class V1_9_4Dragon implements AbstractDragon {
 		m.getLogger().info("DRAGON SPAWNED " + arena + " " + t.toString());
 		Object w = ((CraftWorld) t.getWorld()).getHandle();
 		ArrayList<Vector> temp = ((MEArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena)).getDragonWayPoints(arena);
-		if (temp == null  || temp.isEmpty()) {
+		if (temp == null || temp.isEmpty()) {
 			m.getLogger().severe("You forgot to set any FlyPoints! You need to have min. 2 and one of them has to be at finish.");
 			return null;
 		}
-		MEDragon t_ = new MEDragon(m, arena, t, (net.minecraft.server.v1_9_R2.World) ((CraftWorld) t.getWorld()).getHandle(), temp);
-		((net.minecraft.server.v1_9_R2.World) w).addEntity(t_, CreatureSpawnEvent.SpawnReason.CUSTOM);
+		MEDragon t_ = new MEDragon(m, arena, t, (net.minecraft.server.v1_11_R1.World) ((CraftWorld) t.getWorld()).getHandle(), temp);
+		((net.minecraft.server.v1_11_R1.World) w).addEntity(t_, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		t_.setCustomName(m.getDragonName());
 		dragons.put(arena, t_);
 		return t_;
@@ -128,7 +74,7 @@ public class V1_9_4Dragon implements AbstractDragon {
 			removeEnderdragon(dragons.get(arena));
 			dragons.put(arena, null);
 		} catch (Exception e) {
-			MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
+		    MinigamesAPI.getAPI().getLogger().log(Level.WARNING, "exception", e);
 		}
 	}
 
@@ -161,7 +107,8 @@ public class V1_9_4Dragon implements AbstractDragon {
 
 	@Override
 	public boolean isDragon(LivingEntity entity) {
-		return ((CraftLivingEntity)entity).getHandle() instanceof MEDragon;
+		final EntityLiving handle = ((CraftLivingEntity)entity).getHandle();
+		return handle instanceof MEDragon;
 	}
 
 }

@@ -35,6 +35,8 @@ import org.bukkit.util.Vector;
 
 import com.comze.instancelabs.mgmobescape.v1_10.V1_10Dragon;
 import com.comze.instancelabs.mgmobescape.v1_10.V1_10Wither;
+import com.comze.instancelabs.mgmobescape.v1_11.V1_11Dragon;
+import com.comze.instancelabs.mgmobescape.v1_11.V1_11Wither;
 import com.comze.instancelabs.mgmobescape.v1_9.V1_9Dragon;
 import com.comze.instancelabs.mgmobescape.v1_9.V1_9Wither;
 import com.comze.instancelabs.mgmobescape.v1_9_R2.V1_9_4Dragon;
@@ -94,6 +96,10 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		default:
 		case Unknown:
 			getLogger().info("incompatible version " + MinigamesAPI.SERVER_VERSION);
+			break;
+		case V1_11:
+		case V1_11_R1:
+			getLogger().info("Turned on 1.11R1 mode.");
 			break;
 		case V1_10:
 		case V1_10_R1:
@@ -196,6 +202,9 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		default:
 		case Unknown:
 			return false;
+		case V1_11:
+		case V1_11_R1:
+			return V1_11Dragon.registerEntities();
 		case V1_10:
 		case V1_10_R1:
 			return V1_10Dragon.registerEntities();
@@ -569,6 +578,9 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		default:
 		case Unknown:
 			return null;
+		case V1_11:
+		case V1_11_R1:
+			return new V1_11Dragon();
 		case V1_10:
 		case V1_10_R1:
 			return new V1_10Dragon();
@@ -606,6 +618,9 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		case V1_10:
 		case V1_10_R1:
 			return new V1_10Wither();
+		case V1_11:
+		case V1_11_R1:
+			return new V1_11Wither();
 		case V1_7:
 		case V1_7_R1:
 			return new V1_7Wither();

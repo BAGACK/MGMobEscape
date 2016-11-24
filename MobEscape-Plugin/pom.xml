@@ -74,6 +74,11 @@
   			<artifactId>MGMobEscape-1.10R1</artifactId>
   			<version>1.14.14-SNAPSHOT</version>
   		</dependency>
+  		<dependency>
+			<groupId>com.github.MCE-Plugins</groupId>
+  			<artifactId>MGMobEscape-1.11R1</artifactId>
+  			<version>1.14.14-SNAPSHOT</version>
+  		</dependency>
 	</dependencies>
 
 	<build>

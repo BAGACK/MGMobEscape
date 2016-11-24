@@ -2,11 +2,6 @@ package com.comze.instancelabs.mgmobescape.v1_9_R2;
 
 import java.util.ArrayList;
 
-import net.minecraft.server.v1_9_R2.DamageSource;
-import net.minecraft.server.v1_9_R2.EntityComplexPart;
-import net.minecraft.server.v1_9_R2.EntityWither;
-import net.minecraft.server.v1_9_R2.World;
-
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
@@ -15,6 +10,11 @@ import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
+
+import net.minecraft.server.v1_9_R2.DamageSource;
+import net.minecraft.server.v1_9_R2.EntityComplexPart;
+import net.minecraft.server.v1_9_R2.EntityWither;
+import net.minecraft.server.v1_9_R2.World;
 
 public class MEWither extends EntityWither implements AbstractMEWither {
 

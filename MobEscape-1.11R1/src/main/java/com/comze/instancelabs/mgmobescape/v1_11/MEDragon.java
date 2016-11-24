@@ -1,22 +1,22 @@
-package com.comze.instancelabs.mgmobescape.v1_9;
+package com.comze.instancelabs.mgmobescape.v1_11;
 
 import java.util.ArrayList;
 
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-import com.comze_instancelabs.mgmobescape.AbstractMEWither;
+import com.comze_instancelabs.mgmobescape.AbstractMEDragon;
 import com.comze_instancelabs.mgmobescape.MEArena;
 import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 
-import net.minecraft.server.v1_9_R1.DamageSource;
-import net.minecraft.server.v1_9_R1.EntityComplexPart;
-import net.minecraft.server.v1_9_R1.EntityWither;
-import net.minecraft.server.v1_9_R1.World;
+import net.minecraft.server.v1_11_R1.DamageSource;
+import net.minecraft.server.v1_11_R1.EntityComplexPart;
+import net.minecraft.server.v1_11_R1.EntityEnderDragon;
+import net.minecraft.server.v1_11_R1.World;
 
-public class MEWither extends EntityWither implements AbstractMEWither {
+public class MEDragon extends EntityEnderDragon implements AbstractMEDragon {
 
 	private boolean onGround = false;
 	private ArrayList<Vector> points = new ArrayList();
@@ -27,7 +27,7 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 	private MEMain m;
 	private MEArena arena;
 
-	public MEWither(MEMain m, String arena, Location loc, World world, ArrayList<Vector> p) {
+	public MEDragon(MEMain m, String arena, Location loc, World world, ArrayList<Vector> p) {
 		super(world);
 		this.m = m;
 		this.arena = (MEArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena);
@@ -63,7 +63,7 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 	}
 
 	@Override
-	public void m() {
+	public void A_() {
 		return;
 	}
 
@@ -125,11 +125,11 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 			this.Y = (Math.abs(disY) / tick_);
 			this.Z = (Math.abs(disZ) / tick_);
 
-			Tools.setYawPitchWither(arena.getWither(), new Vector(this.locX, this.locY, this.locZ), points.get(currentid));
+			Tools.setYawPitchDragon(arena.getDragon(), new Vector(this.locX, this.locY, this.locZ), points.get(currentid));
 
 		}
 
-		Tools.setYawPitchWither(arena.getWither(), new Vector(this.locX, this.locY, this.locZ), points.get(currentid));
+		Tools.setYawPitchDragon(arena.getDragon(), new Vector(this.locX, this.locY, this.locZ), points.get(currentid));
 
 		if (tempx < points.get(currentid).getX())
 			tempx += this.X;
@@ -157,5 +157,18 @@ public class MEWither extends EntityWither implements AbstractMEWither {
 		this.yaw = yaw;
 		this.pitch = pitch;
 	}
+
+	/*
+	 * public void setYawPitch(Vector l) { double dx = l.getX() - this.locX; double dy = l.getY() - this.locY; double dz = l.getZ() - this.locZ;
+	 * 
+	 * if (dx != 0) { if (dx < 0) { this.yaw = (float) (1.5 * Math.PI); } else { this.yaw = (float) (0.5 * Math.PI); } this.yaw = (float) this.yaw -
+	 * (float) Math.atan(dz / dx); } else if (dz < 0) { this.yaw = (float) Math.PI; }
+	 * 
+	 * double dxz = Math.sqrt(Math.pow(dx, 2) + Math.pow(dz, 2));
+	 * 
+	 * pitch = (float) -Math.atan(dy / dxz);
+	 * 
+	 * this.yaw = -yaw * 180F / (float) Math.PI - 180F; this.pitch = pitch * 180F / (float) Math.PI - 180F; }
+	 */
 
 }

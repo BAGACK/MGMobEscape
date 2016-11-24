@@ -1,4 +1,4 @@
-package com.comze_instancelabs.mgmobescape.v1_8._R2;
+package com.comze.instancelabs.mgmobescape.v1_11;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R2.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -23,10 +23,11 @@ import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 
-import net.minecraft.server.v1_8_R2.BlockPosition;
-import net.minecraft.server.v1_8_R2.PacketPlayOutWorldEvent;
+import net.minecraft.server.v1_11_R1.BlockPosition;
+import net.minecraft.server.v1_11_R1.EnumMoveType;
+import net.minecraft.server.v1_11_R1.PacketPlayOutWorldEvent;
 
-public class V1_8_3Wither implements AbstractWither {
+public class V1_11Wither implements AbstractWither {
 
 	public static HashMap<String, MEWither> wither = new HashMap<String, MEWither>();
 
@@ -45,15 +46,15 @@ public class V1_8_3Wither implements AbstractWither {
 		m.getLogger().info("WITHER SPAWNED " + arena + " " + t.toString());
 		Object w = ((CraftWorld) t.getWorld()).getHandle();
 		ArrayList<Vector> temp = ((MEArena) MinigamesAPI.getAPI().pinstances.get(m).getArenaByName(arena)).getDragonWayPoints(arena);
-		if (temp == null  || temp.isEmpty()) {
+		if (temp == null || temp.isEmpty()) {
 			m.getLogger().severe("You forgot to set any FlyPoints! You need to have min. 2 and one of them has to be at finish.");
 			return null;
 		}
-		MEWither t_ = new MEWither(m, arena, t, (net.minecraft.server.v1_8_R2.World) ((CraftWorld) t.getWorld()).getHandle(), temp);
-		((net.minecraft.server.v1_8_R2.World) w).addEntity(t_, CreatureSpawnEvent.SpawnReason.CUSTOM);
+		MEWither t_ = new MEWither(m, arena, t, (net.minecraft.server.v1_11_R1.World) ((CraftWorld) t.getWorld()).getHandle(), temp);
+		((net.minecraft.server.v1_11_R1.World) w).addEntity(t_, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		t_.setCustomName(m.getDragonName());
 		wither.put(arena, t_);
-		t_.move(0.1D, 0.1D, 0.1D);
+		t_.move(EnumMoveType.SELF, 0.1D, 0.1D, 0.1D);
 		return t_;
 	}
 
