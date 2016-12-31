@@ -35,18 +35,18 @@ public class IArenaScoreboard extends ArenaScoreboard {
 
 	public void updateScoreboard(final IArena arena) {
 		try {
-			Location finish = arena.getLastDragonWaypointLoc(arena.getName());
+			Location finish = arena.getLastDragonWaypointLoc(arena.getInternalName());
 			for (String p_ : arena.getAllPlayers()) {
-				if (!ascore.containsKey(arena.getName())) {
-					ascore.put(arena.getName(), Bukkit.getScoreboardManager().getNewScoreboard());
+				if (!ascore.containsKey(arena.getInternalName())) {
+					ascore.put(arena.getInternalName(), Bukkit.getScoreboardManager().getNewScoreboard());
 				}
-				if (!aobjective.containsKey(arena.getName())) {
-					aobjective.put(arena.getName(), ascore.get(arena.getName()).registerNewObjective(arena.getName(), "dummy"));
+				if (!aobjective.containsKey(arena.getInternalName())) {
+					aobjective.put(arena.getInternalName(), ascore.get(arena.getInternalName()).registerNewObjective(arena.getInternalName(), "dummy"));
 				}
 
-				aobjective.get(arena.getName()).setDisplaySlot(DisplaySlot.SIDEBAR);
+				aobjective.get(arena.getInternalName()).setDisplaySlot(DisplaySlot.SIDEBAR);
 
-				aobjective.get(arena.getName()).setDisplayName(pli.getMessagesConfig().scoreboard_title.replaceAll("<arena>", arena.getName()));
+				aobjective.get(arena.getInternalName()).setDisplayName(pli.getMessagesConfig().scoreboard_title.replaceAll("<arena>", arena.getDisplayName()));
 
 				for (String pl_ : arena.getAllPlayers()) {
 					Player p = Bukkit.getPlayer(pl_);
@@ -64,9 +64,9 @@ public class IArenaScoreboard extends ArenaScoreboard {
 						}
 						try {
 							if (pl_.length() < 15) {
-								aobjective.get(arena.getName()).getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_)).setScore(score);
+								aobjective.get(arena.getInternalName()).getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_)).setScore(score);
 							} else {
-								aobjective.get(arena.getName()).getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_.substring(0, pl_.length() - 3))).setScore(score);
+								aobjective.get(arena.getInternalName()).getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_.substring(0, pl_.length() - 3))).setScore(score);
 							}
 						} catch (Exception e) {
 						}
@@ -75,11 +75,11 @@ public class IArenaScoreboard extends ArenaScoreboard {
 							int score = currentscore.get(pl_);
 							try {
 								if (pl_.length() < 15) {
-									ascore.get(arena.getName()).resetScores(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_));
-									aobjective.get(arena.getName()).getScore(Bukkit.getOfflinePlayer(ChatColor.RED + pl_)).setScore(score);
+									ascore.get(arena.getInternalName()).resetScores(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_));
+									aobjective.get(arena.getInternalName()).getScore(Bukkit.getOfflinePlayer(ChatColor.RED + pl_)).setScore(score);
 								} else {
-									ascore.get(arena.getName()).resetScores(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_.substring(0, p_.length() - 3)));
-									aobjective.get(arena.getName()).getScore(Bukkit.getOfflinePlayer(ChatColor.RED + pl_.substring(0, p_.length() - 3))).setScore(score);
+									ascore.get(arena.getInternalName()).resetScores(Bukkit.getOfflinePlayer(ChatColor.GREEN + pl_.substring(0, p_.length() - 3)));
+									aobjective.get(arena.getInternalName()).getScore(Bukkit.getOfflinePlayer(ChatColor.RED + pl_.substring(0, p_.length() - 3))).setScore(score);
 								}
 							} catch (Exception e) {
 							}
@@ -87,7 +87,7 @@ public class IArenaScoreboard extends ArenaScoreboard {
 					}
 				}
 
-				Bukkit.getPlayer(p_).setScoreboard(ascore.get(arena.getName()));
+				Bukkit.getPlayer(p_).setScoreboard(ascore.get(arena.getInternalName()));
 			}
 		} catch (Exception e) {
 			this.plugin.getLogger().log(Level.SEVERE, "Failed setting Scoreboard", e);
@@ -96,7 +96,7 @@ public class IArenaScoreboard extends ArenaScoreboard {
 
 	@Override
 	public void updateScoreboard(JavaPlugin plugin, final Arena arena) {
-		IArena a = (IArena) MinigamesAPI.getAPI().pinstances.get(plugin).getArenaByName(arena.getName());
+		IArena a = (IArena) MinigamesAPI.getAPI().pinstances.get(plugin).getArenaByName(arena.getInternalName());
 		this.updateScoreboard(a);
 	}
 
