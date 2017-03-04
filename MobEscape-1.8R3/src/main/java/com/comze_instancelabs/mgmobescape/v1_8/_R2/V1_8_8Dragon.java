@@ -159,6 +159,17 @@ public class V1_8_8Dragon implements AbstractDragon {
 
 		return b;
 	}
+	
+	public Block[] getSphereLoc(MEMain m, final Location l, String arena, Location l2, int x, int y, int z)
+	{
+		final MEDragon meDragon = dragons.get(arena);
+		final Location loc = new Location(meDragon.world.getWorld(), meDragon.locX, meDragon.locY, meDragon.locZ);
+		Block[] b = new Block[]{
+				loc.clone().add(x, y, z).getBlock(), loc.clone().add(-x, y, z).getBlock(), loc.clone().add(x, -y, z).getBlock(), loc.clone().add(x, y, -z).getBlock(),
+				loc.clone().add(-x, -y, z).getBlock(), loc.clone().add(x, -y, -z).getBlock(), loc.clone().add(-x, y, -z).getBlock(), loc.clone().add(-x, -y, -z).getBlock()
+		};
+		return b;
+	}
 
 	public void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, int blockRatio) {
 		Tools.destroy(m, l, l2, arena, length2, "dragon", false, true, blockRatio);

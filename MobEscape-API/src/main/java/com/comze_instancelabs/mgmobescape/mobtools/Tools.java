@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import com.comze_instancelabs.mgmobescape.AbstractDragon;
+import com.comze_instancelabs.mgmobescape.AbstractEntity;
 import com.comze_instancelabs.mgmobescape.AbstractMEDragon;
 import com.comze_instancelabs.mgmobescape.AbstractMEWither;
 import com.comze_instancelabs.mgmobescape.AbstractWither;
@@ -39,63 +40,117 @@ public class Tools {
 		}, 10L);
 
 	}
+	
+	private static AbstractEntity getEntityFromType(MEArena arena, String type)
+	{
+		if (type.equalsIgnoreCase("dragon")) {
+			return arena.getDragonUtil();
+		}
+		if (type.equalsIgnoreCase("wither")) {
+			return arena.getWitherUtil();
+		}
+		return null;
+	}
 
 	// the boolean parameters in this function are not used anymore
 	public static void destroy(final MEMain m, final Location l, final Location l2, String arena, int length2, String type, boolean mode1_6, boolean mode1_7_5, int blockRatio) {
-		int ratio = 0;
 		final MEArena a = (MEArena) m.getPluginInstance().getArenaByName(arena);
-		for (int i = 0; i < m.getDestroyRadius(); i++) { // length1
-			for (int j = 0; j < m.getDestroyRadius(); j++) {
-				if (type.equalsIgnoreCase("dragon")) {
-					final AbstractDragon ad = a.getDragonUtil();
-
-					final Block[] loc = ad.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2);
-					a.getSmartReset().addChanged(loc);
-					for (final Block b : loc) {
-						if (b.getType() != Material.AIR) {
-							if (m.isSpawnFallingBlocks()) {
-								ad.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
-								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
-									ratio += blockRatio;
-									if (ratio >= 100) {
-										FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-										fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
-										fb.setDropItem(false);
-										fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
-										ratio = 0;
+		final AbstractEntity entity = getEntityFromType(a, type);
+		if (entity != null)
+		{
+			if (m.isSphereDestroy())
+			{
+				int ratio = 0;
+				double invRadius = 1.0D / m.getDestroyRadius();
+				int radius = (int)Math.ceil(m.getDestroyRadius() + 0.5D);
+				double nextXn = 0.0D;
+				forX: for (int x = 0; x <= radius; ++x)
+				{
+					double xn = nextXn;
+					nextXn = (x + 1) * invRadius;
+					double nextYn = 0.0D;
+					forY: for (int y = 0; y <= radius; ++y)
+					{
+						double yn = nextYn;
+						nextYn = (y + 1) * invRadius;
+						double nextZn = 0.0D;
+						forZ: for (int z = 0; z <= radius; ++z)
+						{
+							double zn = nextZn;
+							nextZn = (z + 1) * invRadius;
+							double distanceSq = lengthSq(xn, yn, zn);
+							if (distanceSq > 1.0D)
+							{
+								if (z == 0)
+								{
+									if (y == 0)
+									{
+										break forX;
 									}
+									break forY;
+								}
+								break forZ;
+							}
+							
+							final Block[] loc =entity.getSphereLoc(m, l, arena, l2, x, y, z);
+							a.getSmartReset().addChanged(loc);
+							for (final Block b : loc) {
+								if (b.getType() != Material.AIR) {
+									if (m.isSpawnFallingBlocks()) {
+										entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
+										if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
+											ratio += blockRatio;
+											if (ratio >= 100) {
+												FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+												fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
+												fb.setDropItem(false);
+												fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
+												ratio = 0;
+											}
+										}
+									}
+									b.setType(Material.AIR);
 								}
 							}
-							b.setType(Material.AIR);
+							
 						}
 					}
-				} else if (type.equalsIgnoreCase("wither")) {
-					final AbstractWither aw = a.getWitherUtil();
-
-					final Block[] loc = aw.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2);
-					a.getSmartReset().addChanged(loc);
-					for (final Block b : loc) {
-						if (b.getType() != Material.AIR) {
-							if (m.isSpawnFallingBlocks()) {
-								aw.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
-								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
-									ratio += blockRatio;
-									if (ratio >= 100) {
-										FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-										fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
-										fb.setDropItem(false);
-										fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
-										ratio = 0;
+				}
+			}
+			else
+			{
+				int ratio = 0;
+				for (int i = 0; i < m.getDestroyRadius(); i++) { // length1
+					for (int j = 0; j < m.getDestroyRadius(); j++) {
+						final Block[] loc = entity.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2);
+						a.getSmartReset().addChanged(loc);
+						for (final Block b : loc) {
+							if (b.getType() != Material.AIR) {
+								if (m.isSpawnFallingBlocks()) {
+									entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
+									if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
+										ratio += blockRatio;
+										if (ratio >= 100) {
+											FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
+											fb.setMetadata("1337", new FixedMetadataValue(m.getPlugin(), "true"));
+											fb.setDropItem(false);
+											fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
+											ratio = 0;
+										}
 									}
 								}
+								b.setType(Material.AIR);
 							}
-							b.setType(Material.AIR);
 						}
 					}
-
 				}
 			}
 		}
+	}
+	
+	private static double lengthSq(double x, double y, double z)
+	{
+		return (x * x + y * y + z * z);
 	}
 
 	public static void setYawPitchDragon(AbstractMEDragon ad, Vector start, Vector l) {

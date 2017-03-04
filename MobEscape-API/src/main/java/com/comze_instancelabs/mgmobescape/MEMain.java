@@ -29,4 +29,6 @@ public interface MEMain {
 
 	PluginInstance getPluginInstance();
 
+	boolean isSphereDestroy();
+
 }

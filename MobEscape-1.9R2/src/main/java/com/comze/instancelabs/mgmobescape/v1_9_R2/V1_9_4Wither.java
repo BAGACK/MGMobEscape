@@ -80,6 +80,17 @@ public class V1_9_4Wither implements AbstractWither {
 
 		return b;
 	}
+	
+	public Block[] getSphereLoc(MEMain m, final Location l, String arena, Location l2, int x, int y, int z)
+	{
+		final MEWither meWither = wither.get(arena);
+		final Location loc = new Location(meWither.world.getWorld(), meWither.locX, meWither.locY, meWither.locZ);
+		Block[] b = new Block[]{
+				loc.clone().add(x, y, z).getBlock(), loc.clone().add(-x, y, z).getBlock(), loc.clone().add(x, -y, z).getBlock(), loc.clone().add(x, y, -z).getBlock(),
+				loc.clone().add(-x, -y, z).getBlock(), loc.clone().add(x, -y, -z).getBlock(), loc.clone().add(-x, y, -z).getBlock(), loc.clone().add(-x, -y, -z).getBlock()
+		};
+		return b;
+	}
 
 	public void stop(final MEMain m, BukkitTask t, final String arena) {
 		if (t != null) {

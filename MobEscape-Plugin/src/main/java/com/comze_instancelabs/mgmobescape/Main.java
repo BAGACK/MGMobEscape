@@ -86,6 +86,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	
 	public HashMap<String, Integer> ppoint = new HashMap<String, Integer>();
 	public ArrayList<String> p_used_kit = new ArrayList<String>();
+	private String destroyMode = "cuboid";
 
 	public void onEnable() {
 		cmdhandler = new ICommandHandler();
@@ -153,6 +154,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.getConfig().addDefault("config.mob_name", "Dragon");
 		this.getConfig().addDefault("config.mob_speed", 1);
 		this.getConfig().addDefault("config.destroy_radius", destroy_radius);
+		this.getConfig().addDefault("config.destroy_mode", this.destroyMode);
 		this.getConfig().addDefault("config.spawn_falling_blocks", spawn_falling_blocks);
 		this.getConfig().addDefault("config.all_living_players_win", all_living_players_win);
 		this.getConfig().addDefault("config.die_below_bedrock_level", 4);
@@ -166,6 +168,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.spawn_falling_blocks = this.getConfig().getBoolean("config.spawn_falling_blocks");
 		this.all_living_players_win = this.getConfig().getBoolean("config.all_living_players_win");
 		this.pvp = this.getConfig().getBoolean("config.allow_player_pvp");
+		this.destroyMode = this.getConfig().getString("config.destroy_mode");
 
 		if (this.getConfig().isBoolean("config.die_below_bedrock_level"))
 		{
@@ -191,6 +194,11 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			pli.getArenaAchievements().addDefaultAchievement("no_used_kit", "Haven't used any kit!", 50);
 			pli.getAchievementsConfig().getConfig().options().copyDefaults(true);
 			pli.getAchievementsConfig().saveConfig();
+		}
+		
+		if (!this.destroyMode.equals("cuboid") || !this.destroyMode.equals("sphere"))
+		{
+			getLogger().warning("Config: Invalid destroy_mode. 'cuboid' or 'sphere' expected. Switching back to default 'cuboid'.");
 		}
 
 	}
@@ -673,6 +681,11 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	@Override
 	public PluginInstance getPluginInstance() {
 		return this.pli;
+	}
+
+	@Override
+	public boolean isSphereDestroy() {
+		return this.destroyMode.equals("sphere");
 	}
 
 }
