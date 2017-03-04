@@ -23,16 +23,21 @@ import com.comze_instancelabs.mgmobescape.MEMain;
 import com.comze_instancelabs.mgmobescape.mobtools.Tools;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 
-import net.minecraft.server.v1_8_R1.BlockPosition;
-import net.minecraft.server.v1_8_R1.PacketPlayOutWorldEvent;
+import net.minecraft.server.v1_8_R1.EnumParticle;
+import net.minecraft.server.v1_8_R1.PacketPlayOutWorldParticles;
 
 public class V1_8Wither implements AbstractWither {
 
 	public static HashMap<String, MEWither> wither = new HashMap<String, MEWither>();
 
 	public void playBlockBreakParticles(final Location loc, final Material m, final Player... players) {
-		@SuppressWarnings("deprecation")
-		PacketPlayOutWorldEvent packet = new PacketPlayOutWorldEvent(2001, new BlockPosition(loc.getX(), loc.getY(), loc.getZ()), m.getId(), false);
+		final Block block = loc.getBlock();
+		final PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
+				EnumParticle.BLOCK_CRACK, true,
+				(float) loc.getX(), (float) loc.getY(), (float) loc.getZ(),
+				1.0f, 1.0f, 1.0f,
+				0, 10,
+				block.getTypeId(), block.getData());
 		for (final Player p : players) {
 			((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
 		}

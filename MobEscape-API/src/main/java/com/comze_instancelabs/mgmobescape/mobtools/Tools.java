@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -53,7 +54,7 @@ public class Tools {
 					for (final Block b : loc) {
 						if (b.getType() != Material.AIR) {
 							if (m.isSpawnFallingBlocks()) {
-								ad.playBlockBreakParticles(b.getLocation(), b.getType());
+								ad.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
 									ratio += blockRatio;
 									if (ratio >= 100) {
@@ -76,7 +77,7 @@ public class Tools {
 					for (final Block b : loc) {
 						if (b.getType() != Material.AIR) {
 							if (m.isSpawnFallingBlocks()) {
-								aw.playBlockBreakParticles(b.getLocation(), b.getType());
+								aw.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 								if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
 									ratio += blockRatio;
 									if (ratio >= 100) {
