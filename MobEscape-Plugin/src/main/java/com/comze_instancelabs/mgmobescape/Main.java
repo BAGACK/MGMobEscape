@@ -196,7 +196,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			pli.getAchievementsConfig().saveConfig();
 		}
 		
-		if (!this.destroyMode.equals("cuboid") || !this.destroyMode.equals("sphere"))
+		if (!this.destroyMode.equals("cuboid") && !this.destroyMode.equals("sphere"))
 		{
 			getLogger().warning("Config: Invalid destroy_mode. 'cuboid' or 'sphere' expected. Switching back to default 'cuboid'.");
 		}
