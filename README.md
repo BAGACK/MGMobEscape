@@ -1,4 +1,4 @@
-MGMobEscape [![Build Status](http://www.minigameslib.de/build.php?app=MobEscape&major=1)](http://www.minigameslib.de/buildref.php?app=MobEscape&major=1)
+MGMobEscape [![Build Status](http://www.minigameslib.de/build.png?app=MobEscape&major=1)](http://www.minigameslib.de/buildref.php?app=MobEscape&major=1)
 =======
 
 MobEscape game for spigot-minecraft using [MinigamesAPI](https://github.com/MysticCity/MinigamesAPI).
