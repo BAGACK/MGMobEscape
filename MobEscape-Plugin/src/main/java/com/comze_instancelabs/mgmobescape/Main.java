@@ -391,8 +391,10 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 								return;
 							}
 
-							int index = getAllPoints(m, a.getName()).size() - 1;
-							if (Math.abs(p.getLocation().getBlockX() - getAllPoints(m, a.getName()).get(index).getBlockX()) < 3 && Math.abs(p.getLocation().getBlockZ() - getAllPoints(m, a.getName()).get(index).getBlockZ()) < 3 && Math.abs(p.getLocation().getBlockY() - getAllPoints(m, a.getName()).get(index).getBlockY()) < 3) {
+							final ArrayList<Location> allPoints = getAllPoints(m, a.getName());
+							int index = allPoints.size() - 1;
+							if (Math.abs(p.getLocation().getBlockX() - allPoints.get(index).getBlockX()) < 3 && Math.abs(p.getLocation().getBlockZ() - allPoints.get(index).getBlockZ()) < 3 && Math.abs(p.getLocation().getBlockY() - allPoints.get(index).getBlockY()) < 3) {
+								// winning situation
 								if (!all_living_players_win) {
 									for (String p_ : a.getAllPlayers()) {
 										if (!p_.equalsIgnoreCase(p.getName())) {
@@ -404,19 +406,19 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 								return;
 							}
 
-							// TODO Die behind mob (experimental)
+							// Die behind mob (experimental)
 							if (!ppoint.containsKey(p.getName())) {
 								ppoint.put(p.getName(), -1);
 							}
 							int i = ppoint.get(p.getName());
 
-							int size = getAllPoints(m, a.getName()).size();
+							int size = allPoints.size();
 							if (i < size) {
 								if (i > -1) {
 									int defaultdelta = 5;
 
 									if (i + 1 < size) {
-										Location temp = getAllPoints(m, a.getName()).get(i + 1);
+										Location temp = allPoints.get(i + 1);
 
 										if (Math.abs(p.getLocation().getBlockX() - temp.getBlockX()) < defaultdelta && Math.abs(p.getLocation().getBlockZ() - temp.getBlockZ()) < defaultdelta && Math.abs(p.getLocation().getBlockY() - temp.getBlockY()) < defaultdelta * 2) {
 											i++;
@@ -425,7 +427,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 									}
 								} else {
 									int defaultdelta = 5;
-									Location temp = getAllPoints(m, a.getName()).get(0);
+									Location temp = allPoints.get(0);
 									if (Math.abs(p.getLocation().getBlockX() - temp.getBlockX()) < defaultdelta && Math.abs(p.getLocation().getBlockZ() - temp.getBlockZ()) < defaultdelta) {
 										i++;
 										ppoint.put(p.getName(), i);

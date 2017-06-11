@@ -1,6 +1,7 @@
 package com.comze_instancelabs.mgmobescape;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -84,6 +85,30 @@ public class IArena extends Arena implements MEArena {
 		if (getDragonSpawn() == null || getDragonSpawn().getWorld() == null) {
 			Util.saveComponentForArena(m, arena, "mobspawn", a.getSpawns().get(0).clone().add(0D, 3D, 0D));
 		}
+		
+		final Location dragonSpawn = a.getDragonSpawn();
+		// calculate first player waypoint
+		final Location firstspawn = this.getSpawns().get(0);
+		if (firstspawn != null)
+		{
+			final double spawndistance = Math.pow(dragonSpawn.getX() - firstspawn.getX(), 2) + Math.pow(dragonSpawn.getZ() - firstspawn.getZ(), 2);
+			final List<Location> locs = Main.getAllPoints(m, getInternalName());
+			int i = 0;
+			for (final Location loc : locs)
+			{
+				final double locdistance = Math.pow(dragonSpawn.getX() - loc.getX(), 2) + Math.pow(dragonSpawn.getZ() - loc.getZ(), 2);
+				if (locdistance > spawndistance)
+				{
+					for (final String p : this.getAllPlayers())
+					{
+						Main.m.getPPoint().put(p, i);
+					}
+					break;
+				}
+				i++;
+			}
+		}
+		
 		if (mobtype.equalsIgnoreCase("dragon")) {
 			switch (MinigamesAPI.SERVER_VERSION)
 			{
@@ -93,56 +118,56 @@ public class IArena extends Arena implements MEArena {
 			case V1_10:
 			case V1_10_R1:
 				ad = new V1_10Dragon();
-				setDragon(V1_10Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_10Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_11:
 			case V1_11_R1:
 				ad = new V1_11Dragon();
-				setDragon(V1_11Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_11Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_12:
 			case V1_12_R1:
 				ad = new V1_12Dragon();
-				setDragon(V1_12Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_12Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_7:
 			case V1_7_R1:
 				ad = new V1_7Dragon();
-				setDragon(V1_7Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_7Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_7_R2:
 				ad = new V1_7_5Dragon();
-				setDragon(V1_7_5Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_7_5Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_7_R3:
 				ad = new V1_7_8Dragon();
-				setDragon(V1_7_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_7_8Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_7_R4:
 				ad = new V1_7_10Dragon();
-				setDragon(V1_7_10Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_7_10Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_8:
 			case V1_8_R1:
 				ad = new V1_8Dragon();
-				setDragon(V1_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_8Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_8_R2:
 				ad = new V1_8_3Dragon();
-				setDragon(V1_8_3Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_8_3Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_8_R3:
 				ad = new V1_8_8Dragon();
-				setDragon(V1_8_8Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_8_8Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_9:
 			case V1_9_R1:
 				ad = new V1_9Dragon();
-				setDragon(V1_9Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_9Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			case V1_9_R2:
 				ad = new V1_9_4Dragon();
-				setDragon(V1_9_4Dragon.spawnEnderdragon(m, arena, a.getDragonSpawn()));
+				setDragon(V1_9_4Dragon.spawnEnderdragon(m, arena, dragonSpawn));
 				break;
 			}
 		} else {
@@ -154,56 +179,56 @@ public class IArena extends Arena implements MEArena {
 			case V1_10:
 			case V1_10_R1:
 				aw = new V1_10Wither();
-				setWither(V1_10Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_10Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_11:
 			case V1_11_R1:
 				aw = new V1_11Wither();
-				setWither(V1_11Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_11Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_12:
 			case V1_12_R1:
 				aw = new V1_12Wither();
-				setWither(V1_12Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_12Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_7:
 			case V1_7_R1:
 				aw = new V1_7Wither();
-				setWither(V1_7Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_7Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_7_R2:
 				aw = new V1_7_5Wither();
-				setWither(V1_7_5Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_7_5Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_7_R3:
 				aw = new V1_7_8Wither();
-				setWither(V1_7_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_7_8Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_7_R4:
 				aw = new V1_7_10Wither();
-				setWither(V1_7_10Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_7_10Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_8:
 			case V1_8_R1:
 				aw = new V1_8Wither();
-				setWither(V1_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_8Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_8_R2:
 				aw = new V1_8_3Wither();
-				setWither(V1_8_3Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_8_3Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_8_R3:
 				aw = new V1_8_8Wither();
-				setWither(V1_8_8Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_8_8Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_9:
 			case V1_9_R1:
 				aw = new V1_9Wither();
-				setWither(V1_9Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_9Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			case V1_9_R2:
 				aw = new V1_9_4Wither();
-				setWither(V1_9_4Wither.spawnWither(m, arena, a.getDragonSpawn()));
+				setWither(V1_9_4Wither.spawnWither(m, arena, dragonSpawn));
 				break;
 			}
 		}
