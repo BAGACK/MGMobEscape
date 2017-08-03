@@ -3,6 +3,8 @@ package com.comze_instancelabs.mgmobescape;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -25,7 +27,6 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -84,12 +85,15 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	public boolean spawn_falling_blocks = true;
 	public boolean all_living_players_win = true;
 	public boolean pvp = true;
+	public boolean liquid_particles = true;
 
 	public double mob_speed = 1.0;
 	
 	public HashMap<String, Integer> ppoint = new HashMap<String, Integer>();
 	public ArrayList<String> p_used_kit = new ArrayList<String>();
 	private String destroyMode = "cuboid";
+	
+	private Set<MaterialType> blockBlacklist = new HashSet<>();
 
 	public void onEnable() {
 		cmdhandler = new ICommandHandler();
@@ -166,6 +170,8 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.getConfig().addDefault("config.destroy_mode", this.destroyMode);
 		this.getConfig().addDefault("config.spawn_falling_blocks", spawn_falling_blocks);
 		this.getConfig().addDefault("config.all_living_players_win", all_living_players_win);
+		this.getConfig().addDefault("config.liquid_particles", liquid_particles);
+		this.getConfig().addDefault("config.block_blacklist", "-");
 		this.getConfig().addDefault("config.die_below_bedrock_level", 4);
 		this.getConfig().addDefault("config.allow_player_pvp", true);
 		this.getConfig().options().copyDefaults(true);
@@ -178,6 +184,18 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.all_living_players_win = this.getConfig().getBoolean("config.all_living_players_win");
 		this.pvp = this.getConfig().getBoolean("config.allow_player_pvp");
 		this.destroyMode = this.getConfig().getString("config.destroy_mode");
+		this.liquid_particles = this.getConfig().getBoolean("config.liquid_particles");
+		
+		final String blacklist = this.getConfig().getString("config.block_blacklist");
+		if (!blacklist.equals("-"))
+		{
+			final String[] materials = blacklist.split(",");
+			for (final String material : materials)
+			{
+				final String[] splitted = material.split(":");
+				this.blockBlacklist.add(new MaterialType(Integer.parseInt(splitted[0]), splitted.length == 1 ? 0 : Integer.parseInt(splitted[1])));
+			}
+		}
 
 		if (this.getConfig().isBoolean("config.die_below_bedrock_level"))
 		{
@@ -210,6 +228,18 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 			getLogger().warning("Config: Invalid destroy_mode. 'cuboid' or 'sphere' expected. Switching back to default 'cuboid'.");
 		}
 
+	}
+	
+	public boolean hasLiquidParticles()
+	{
+		return this.liquid_particles;
+	}
+
+	/**
+	 * @return the blockBlacklist
+	 */
+	public Set<MaterialType> getBlockBlacklist() {
+		return blockBlacklist;
 	}
 
 	private boolean registerEntities() {

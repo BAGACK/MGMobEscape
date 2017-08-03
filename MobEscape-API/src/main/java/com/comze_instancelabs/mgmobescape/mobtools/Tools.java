@@ -95,10 +95,10 @@ public class Tools {
 							final Block[] loc =entity.getSphereLoc(m, l, arena, l2, x, y, z);
 							a.getSmartReset().addChanged(loc);
 							for (final Block b : loc) {
-								if (b.getType() != Material.AIR) {
+								if (b.getType() != Material.AIR && !m.getBlockBlacklist().contains(new MEMain.MaterialType(b.getTypeId(), b.getData()))) {
 									if (m.isSpawnFallingBlocks()) {
-										entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 										if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
+											entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 											ratio += blockRatio;
 											if (ratio >= 100) {
 												FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
@@ -107,6 +107,9 @@ public class Tools {
 												fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
 												ratio = 0;
 											}
+										}
+										else if (m.hasLiquidParticles()) {
+											entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 										}
 									}
 									b.setType(Material.AIR);
@@ -125,10 +128,10 @@ public class Tools {
 						final Block[] loc = entity.getLoc(m, l, arena, i, j - (m.getDestroyRadius() / 3), l2);
 						a.getSmartReset().addChanged(loc);
 						for (final Block b : loc) {
-							if (b.getType() != Material.AIR) {
+							if (b.getType() != Material.AIR && !m.getBlockBlacklist().contains(new MEMain.MaterialType(b.getTypeId(), b.getData()))) {
 								if (m.isSpawnFallingBlocks()) {
-									entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 									if (b.getType() != Material.WATER && b.getType() != Material.LAVA) {
+										entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 										ratio += blockRatio;
 										if (ratio >= 100) {
 											FallingBlock fb = l.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
@@ -137,6 +140,9 @@ public class Tools {
 											fb.setVelocity(new Vector(Math.random() * 0.4, 0.4, Math.random() * 0.4));
 											ratio = 0;
 										}
+									}
+									else if (m.hasLiquidParticles()) {
+										entity.playBlockBreakParticles(b.getLocation(), b.getType(), Bukkit.getOnlinePlayers().toArray(new Player[0]));
 									}
 								}
 								b.setType(Material.AIR);
