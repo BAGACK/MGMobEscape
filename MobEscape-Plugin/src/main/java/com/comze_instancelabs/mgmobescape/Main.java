@@ -67,6 +67,7 @@ import com.comze_instancelabs.minigamesapi.config.ArenasConfig;
 import com.comze_instancelabs.minigamesapi.config.DefaultConfig;
 import com.comze_instancelabs.minigamesapi.config.MessagesConfig;
 import com.comze_instancelabs.minigamesapi.config.StatsConfig;
+import com.comze_instancelabs.minigamesapi.util.PlayerPickupItemHelper;
 import com.comze_instancelabs.minigamesapi.util.Util;
 import com.comze_instancelabs.minigamesapi.util.Validator;
 
@@ -156,6 +157,8 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		pinstance.setArenaListener(listener);
 		MinigamesAPI.getAPI().registerArenaListenerLater(this, listener);
 		pli = pinstance;
+		
+		new PlayerPickupItemHelper(this, this::onPlayerPickup);
 
 		this.getConfig().addDefault("config.mob_name", "Dragon");
 		this.getConfig().addDefault("config.mob_speed", 1);
@@ -542,8 +545,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 
 	}
 
-	@EventHandler
-	public void onPlayerPickup(PlayerPickupItemEvent event) {
+	public void onPlayerPickup(PlayerPickupItemHelper.CustomPickupEvent event) {
 		if (pli.global_players.containsKey(event.getPlayer().getName())) {
 			if (event.getItem().getItemStack().getType() == Material.TNT) {
 				event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 1));
