@@ -101,6 +101,7 @@ public class IArena extends Arena implements MEArena {
 				{
 					for (final String p : this.getAllPlayers())
 					{
+						if (Main.DEBUG) this.logger.info("Player " + p + " reached checkpoint " + i + "@" + a.getInternalName());
 						Main.m.getPPoint().put(p, i);
 					}
 					break;

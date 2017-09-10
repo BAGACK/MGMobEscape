@@ -75,4 +75,6 @@ public interface MEMain {
 		}
 	}
 
+	boolean isDebug();
+
 }

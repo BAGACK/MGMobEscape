@@ -73,6 +73,8 @@ import com.comze_instancelabs.minigamesapi.util.Util;
 import com.comze_instancelabs.minigamesapi.util.Validator;
 
 public class Main extends JavaPlugin implements Listener, MEMain {
+	
+	public static boolean DEBUG = false;
 
 	MinigamesAPI api = null;
 	public PluginInstance pli = null;
@@ -174,6 +176,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.getConfig().addDefault("config.block_blacklist", "-");
 		this.getConfig().addDefault("config.die_below_bedrock_level", 4);
 		this.getConfig().addDefault("config.allow_player_pvp", true);
+		this.getConfig().addDefault("config.debug_players", false);
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
 
@@ -185,6 +188,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 		this.pvp = this.getConfig().getBoolean("config.allow_player_pvp");
 		this.destroyMode = this.getConfig().getString("config.destroy_mode");
 		this.liquid_particles = this.getConfig().getBoolean("config.liquid_particles");
+		DEBUG = this.getConfig().getBoolean("config.debug_players");
 		
 		final String blacklist = this.getConfig().getString("config.block_blacklist");
 		if (!blacklist.equals("-"))
@@ -420,15 +424,19 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 					if (a.getArenaState() == ArenaState.INGAME) {
 						if (a.lowbounds != null && a.highbounds != null) {
 							if (p.getLocation().getBlockY() + pli.getArenaListener().loseY < a.lowbounds.getBlockY()) {
+								if (DEBUG) this.getLogger().info("Player " + p.getName() + " lost! Falling out of arena " + a.getInternalName() + "@" + p.getLocation() + ". If this is wrong please increase config die_below_bedrock_level.");
 								a.spectate(p.getName());
 								return;
 							}
 
 							final ArrayList<Location> allPoints = getAllPoints(m, a.getName());
 							int index = allPoints.size() - 1;
-							if (Math.abs(p.getLocation().getBlockX() - allPoints.get(index).getBlockX()) < 3 && Math.abs(p.getLocation().getBlockZ() - allPoints.get(index).getBlockZ()) < 3 && Math.abs(p.getLocation().getBlockY() - allPoints.get(index).getBlockY()) < 3) {
+							final Location lastloc = allPoints.get(index);
+							if (Math.abs(p.getLocation().getBlockX() - lastloc.getBlockX()) < 3 && Math.abs(p.getLocation().getBlockZ() - lastloc.getBlockZ()) < 3 && Math.abs(p.getLocation().getBlockY() - lastloc.getBlockY()) < 3) {
 								// winning situation
+								if (DEBUG) this.getLogger().info("Player " + p.getName() + " wins " + a.getInternalName() + "! Reached last checkpoint@" + lastloc + "!");
 								if (!all_living_players_win) {
+									if (DEBUG) this.getLogger().info("All players lost because " + p.getName() + " wins " + a.getInternalName() + "!");
 									for (String p_ : a.getAllPlayers()) {
 										if (!p_.equalsIgnoreCase(p.getName())) {
 											pli.global_lost.put(p_, a);
@@ -441,6 +449,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 
 							// Die behind mob (experimental)
 							if (!ppoint.containsKey(p.getName())) {
+								if (DEBUG) this.getLogger().info("Player " + p.getName() + " reached at checkpoint -1@" + a.getInternalName() + ".");
 								ppoint.put(p.getName(), -1);
 							}
 							int i = ppoint.get(p.getName());
@@ -455,6 +464,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 
 										if (Math.abs(p.getLocation().getBlockX() - temp.getBlockX()) < defaultdelta && Math.abs(p.getLocation().getBlockZ() - temp.getBlockZ()) < defaultdelta && Math.abs(p.getLocation().getBlockY() - temp.getBlockY()) < defaultdelta * 2) {
 											i++;
+											if (DEBUG) this.getLogger().info("Player " + p.getName() + " reached checkpoint " + i + "@" + a.getInternalName() + "@" + p.getLocation());
 											ppoint.put(p.getName(), i);
 										}
 									}
@@ -463,6 +473,7 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 									Location temp = allPoints.get(0);
 									if (Math.abs(p.getLocation().getBlockX() - temp.getBlockX()) < defaultdelta && Math.abs(p.getLocation().getBlockZ() - temp.getBlockZ()) < defaultdelta) {
 										i++;
+										if (DEBUG) this.getLogger().info("Player " + p.getName() + " reached checkpoint " + i + "@" + a.getInternalName() + "@" + p.getLocation());
 										ppoint.put(p.getName(), i);
 									}
 								}
@@ -735,6 +746,11 @@ public class Main extends JavaPlugin implements Listener, MEMain {
 	@Override
 	public boolean isSphereDestroy() {
 		return this.destroyMode.equals("sphere");
+	}
+
+	@Override
+	public boolean isDebug() {
+		return DEBUG;
 	}
 
 }
